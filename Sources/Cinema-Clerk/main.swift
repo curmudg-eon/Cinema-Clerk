@@ -9,6 +9,8 @@ bot.on(.messageCreate) { data in
 
   if msg.content == ">ping" {
     msg.reply(with: "Pong!")
+  } else if msg.content == ">vote" {
+    msg.reply(with: "Pong!")
   }
 }
 
