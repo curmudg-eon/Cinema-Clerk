@@ -1,7 +1,7 @@
 import Sword
 import Foundation
 
-class CinemaClerk {
+struct CinemaClerk {
     var streamingLink: URL? = nil
     var movies: [String] = []
     var shows: [String] = []
