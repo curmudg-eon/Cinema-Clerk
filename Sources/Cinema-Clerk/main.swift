@@ -1,8 +1,10 @@
 import Sword
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
-var theatreChannel: Channel
+let clerk = CinemaClerk()
 
+
+// https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing
 
 bot.editStatus(to: "online", watching: ">help")
 
@@ -10,19 +12,17 @@ bot.on(.messageCreate) { data in //Message Handler
     let msg = data as! Message
     
     if msg.content.hasPrefix(">")  {
-        var f = msg.content.firstIndex(of: "p")
-        var content = msg.content.lowercased()
+        //var f = msg.content.firstIndex(of: "p")
+        let content = msg.content.lowercased()
         switch content {
         case ">help":
             helpMessage(msg: msg)
+        case ">addMovie":
+            addMovie(msg: msg)
         default:
             msg.reply(with: "Failure")
         }
         
-        /*
-        if content.hasPrefix(">help") {
-            helpMessage(msg: msg)
-        }*/
         
     }
 }
@@ -38,6 +38,29 @@ Very well, here are your options:
 ```
 """)
 }
+
+func addMovie(msg: Message) {
+    var content = msg.content
+    content = msg.content
+    clerk.addPick(title: content, submitter: msg.author)
+    msg.reply(with: "\(msg.author)'s pick has been added to the watchlist.")
+    msg.delete()
+}
+
+
+ func openVoting(msg: Message) {
+     
+ }
+ /*
+ func dice(msg: Message) {
+     
+ }
+ 
+ func addMovie(msg: Message) {
+     
+ }
+ 
+*/
 
 bot.connect()
 print("connected as \(bot)")

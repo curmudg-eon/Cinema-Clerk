@@ -10,7 +10,7 @@ struct MoviePick {
     mutating func addVote(user: User) -> String {
         for voter in uniqueVoters {
             if voter.username == user.username {
-                return "\(user.username) has already voted for this."
+                return "\(user.username)) has already voted for this."
             }
         }
         uniqueVoters.append(user)
