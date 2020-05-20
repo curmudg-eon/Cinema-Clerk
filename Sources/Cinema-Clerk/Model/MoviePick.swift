@@ -17,14 +17,7 @@ struct MoviePick {
         return "\(user.username) voted for \(self.title). There are now \(uniqueVoters.count) votes for this pick."
     }
     
-    init(title: String, submitter: User) {
-        self.title = title
-        self.link = nil
-        self.submitter = submitter
-        uniqueVoters.append(submitter)
-    }
-    
-    init(title: String, link: String, submitter: User) {
+    init(title: String = "title somehow goofed?", link: String = "No Link provided", submitter: User) {
         self.title = title
         self.link = link
         self.submitter = submitter

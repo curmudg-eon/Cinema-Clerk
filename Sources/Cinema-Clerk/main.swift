@@ -1,7 +1,7 @@
 import Sword
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
-let clerk = CinemaClerk()
+var clerk = CinemaClerk()
 
 
 // https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing
@@ -14,14 +14,28 @@ bot.on(.messageCreate) { data in //Message Handler
     if msg.content.hasPrefix(">")  {
         //var f = msg.content.firstIndex(of: "p")
         let content = msg.content.lowercased()
-        switch content {
+
+        if content.hasPrefix(">help") {
+            helpMessage(msg: msg)
+        } else if content.hasPrefix(">addmovie") {
+            addMovie(msg: msg)
+        } else {
+            msg.reply(with: "Failure")
+        }
+        
+        
+        
+        
+        /*Swap to switch at some point if it makes sense
+         switch content {
         case ">help":
             helpMessage(msg: msg)
-        case ">addMovie":
+        case ">addmovie":
             addMovie(msg: msg)
         default:
             msg.reply(with: "Failure")
         }
+ */
         
         
     }
@@ -40,10 +54,11 @@ Very well, here are your options:
 }
 
 func addMovie(msg: Message) {
-    var content = msg.content
-    content = msg.content
-    clerk.addPick(title: content, submitter: msg.author)
-    msg.reply(with: "\(msg.author)'s pick has been added to the watchlist.")
+    let content = String(msg.content)
+    var tempIndex = content.firstIndex(of: " ") ?? content.endIndex
+    var pick = String(content[tempIndex...content.firstIndex(of: " ")])
+    clerk.addPick(msg: msg)
+    msg.reply(with: "```@\(msg.author!.username!) added\(pick) to the watchlist.```")
     msg.delete()
 }
 

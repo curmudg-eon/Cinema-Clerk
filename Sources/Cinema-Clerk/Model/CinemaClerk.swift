@@ -12,8 +12,9 @@ struct CinemaClerk {
         
     }
     
-    addPick(title: String?, link: String? = "no link", submitter: User ) {
-        movieList.append(MoviePick(title: title, link: link, submitter: submitter)
+    mutating func addPick(msg: Message) {
+        var content = msg.content
+        movieList.append(MoviePick(title: content, submitter: msg.author!))
     }
     
 }
