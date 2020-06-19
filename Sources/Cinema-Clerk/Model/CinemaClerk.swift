@@ -11,10 +11,19 @@ struct CinemaClerk {
     init() {
         
     }
-    
+       
     mutating func addPick(msg: Message) {
         var content = msg.content
-        movieList.append(MoviePick(title: content, submitter: msg.author!))
+        content = content.deletingPrefix(">addMovie ")
+        if content.contains("https://") {
+            var strArr = content.split(separator: " ", omittingEmptySubsequences: true)
+            var link: String = String(strArr.removeLast())
+            var title: String  = strArr.joined(separator: " ")
+            movieList.append(MoviePick(title: title, link: link, submitter: msg.author!))
+        } else {
+            movieList.append(MoviePick(title: content, submitter: msg.author!))
+        }
+
     }
     
 }

@@ -47,11 +47,11 @@ func helpMessage(msg: Message) {
 Very well, here are your options:
 >help : Get a list of commands this bot can execute. \n
 >openVoting : Opens a new watchlist for users to add movies. \n
->addMovie [name] : Adds a movie named [name] to current watchlist.\n
+>addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie. \n
 >dice : closes voting on current watchlist and picks a movie at random. \n
 ```
 """)
-    //>addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie. \n
+
 }
 
 func addMovie(msg: Message) {
