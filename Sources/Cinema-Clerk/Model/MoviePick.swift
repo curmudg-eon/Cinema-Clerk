@@ -2,11 +2,8 @@ import Sword
 import Foundation
 
 struct MoviePick {
-    var title: String
-    var link: String?
-    var submitter: User
+    var pick: (title:String, link:String, submitter: User)
     var uniqueVoters: [User] = []
-    //try a tuple
     mutating func addVote(user: User) -> String {
         for voter in uniqueVoters {
             if voter.username == user.username {
@@ -14,13 +11,11 @@ struct MoviePick {
             }
         }
         uniqueVoters.append(user)
-        return "\(user.username) voted for \(self.title). There are now \(uniqueVoters.count) votes for this pick."
+        return "\(user.username) voted for \(self.pick.title). There are now \(uniqueVoters.count) votes for this pick."
     }
     
     init(title: String = "title somehow goofed?", link: String = "No Link provided", submitter: User) {
-        self.title = title
-        self.link = link
-        self.submitter = submitter
+        self.pick = (title: title, link: link, submitter: submitter)
         uniqueVoters.append(submitter)
     }
     
