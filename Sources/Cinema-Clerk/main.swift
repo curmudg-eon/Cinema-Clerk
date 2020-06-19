@@ -20,7 +20,7 @@ bot.on(.messageCreate) { data in //Message Handler
         } else if content.hasPrefix(">addmovie") {
             addMovie(msg: msg)
         } else {
-            msg.reply(with: "Failure")
+            msg.reply(with: "Were you trying to reach me? I didn't get that.")
         }
         
         
@@ -47,16 +47,17 @@ func helpMessage(msg: Message) {
 Very well, here are your options:
 >help : Get a list of commands this bot can execute. \n
 >openVoting : Opens a new watchlist for users to add movies. \n
->addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie. \n
+>addMovie [name] : Adds a movie named [name] to current watchlist.\n
 >dice : closes voting on current watchlist and picks a movie at random. \n
 ```
 """)
+    //>addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie. \n
 }
 
 func addMovie(msg: Message) {
     let content = String(msg.content)
     var tempIndex = content.firstIndex(of: " ") ?? content.endIndex
-    var pick = String(content[tempIndex...content.firstIndex(of: " ")])
+    var pick = String(content[tempIndex...])
     clerk.addPick(msg: msg)
     msg.reply(with: "```@\(msg.author!.username!) added\(pick) to the watchlist.```")
     msg.delete()

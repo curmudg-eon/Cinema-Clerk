@@ -3,7 +3,7 @@ import Foundation
 
 struct CinemaClerk {
     var streamingLink: URL? = nil
-    var movieList: [MoviePick] = []
+    var movieList: [MoviePick] = [] //try sets
     //var showList: [String] = []
     //var videos: [String] = []
     var textChannel: TextChannel? = nil
