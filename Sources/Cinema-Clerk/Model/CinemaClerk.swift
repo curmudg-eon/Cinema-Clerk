@@ -13,6 +13,10 @@ struct CinemaClerk {
         
     }
        
+    func getWatchList () -> [MoviePick] {
+        return watchList
+    }
+    
     mutating func addPick(pick: MoviePick) {
         watchList.append(pick)
     }

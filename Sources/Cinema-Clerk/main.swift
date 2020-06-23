@@ -30,8 +30,10 @@ bot.on(.messageCreate) { data in //Message Handler
             msg.reply(with: helpMessage)
         } else if content.hasPrefix(">addmovie") {
             addMovie(msg: msg)
+        } else if content.hasPrefix(">showlist") || content.hasPrefix(">showwatchlist") {
+            msg.reply(with: displayWatchList())
         } else {
-            msg.reply(with: "Were you trying to reach me? I didn't get that.")
+            msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
         
         
@@ -74,11 +76,20 @@ func addMovie(msg: Message) {
         """)
     }
    
-    //msg.delete()
+    //msg.delete() //I'm not sure how I feel about this. Deleting the user message makes chat cleaner, but it also removes other users' ability to see what commands can be used to do what. If I leave the message it's like a little invitation to play with the bot
 }
 
-func displayWatchList () {
-    
+func displayWatchList () -> String {
+    if(clerk.getWatchList().isEmpty) {
+        return "Are you monkeying around? There's nothing in the watchlist!"
+    }
+    var printText: String = ""
+    var count: Int = 1
+    for movie in clerk.getWatchList() {
+        printText.append("[\(count)]: " + movie.getTitle() + "\n")
+        count+=1
+    }
+    return printText
 }
 
 func openVoting(msg: Message) {

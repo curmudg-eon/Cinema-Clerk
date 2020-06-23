@@ -15,6 +15,10 @@ struct MoviePick {
         }
     }*/
     
+    func getTitle () -> String {
+        return pick.title
+    }
+    
     init(title: String = "title somehow goofed?", link: String = "No Link provided", submitter: User) {
         self.pick = (title: title, link: link, submitter: submitter)
         uniqueVoters.append(submitter)
