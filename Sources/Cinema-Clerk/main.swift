@@ -26,7 +26,7 @@ bot.on(.messageCreate) { data in //Message Handler
     if msg.content.hasPrefix(">")  {
         let content = msg.content.lowercased()
         
-        if content.hasPrefix(">help") {
+        if content.hasPrefix(">help") { //This could potentially be a switch statement? That may be less memory efficient.
             msg.reply(with: helpMessage)
         } else if content.hasPrefix(">addmovie") {
             addMovie(msg: msg)
@@ -35,22 +35,6 @@ bot.on(.messageCreate) { data in //Message Handler
         } else {
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
-        
-        
-        
-        
-        /*Swap to switch at some point if it makes sense
-         switch content {
-         case ">help":
-         helpMessage(msg: msg)
-         case ">addmovie":
-         addMovie(msg: msg)
-         default:
-         msg.reply(with: "Failure")
-         }
-         */
-        
-        
     }
 }
 
@@ -64,13 +48,13 @@ func addMovie(msg: Message) {
         var strArr = title.split(separator: " ", omittingEmptySubsequences: true)
         link = String(strArr.removeLast())
         title = strArr.joined(separator: " ")
-        clerk.addPick(pick: MoviePick(title: title, link: link, submitter: msg.author!))
+        clerk.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!))
         msg.reply(with: """
         \(msg.author!.username!) added *\(title)* to the watchlist.
         Link: \(link)
         """)
     } else {
-        clerk.addPick(pick: MoviePick(title: title, submitter: msg.author!))
+        clerk.addPick(pick: WatchPick(title: title, submitter: msg.author!))
         msg.reply(with: """
         \(msg.author!.username!) added *\(title)* to the watchlist.
         """)
@@ -97,7 +81,7 @@ func openVoting(msg: Message) {
 }
 
 func dice(msg: Message) {
-    
+    msg.reply(with: "I picked *"+clerk.rollDice().pick.title+"!*")
 }
 
 /*Features for later
