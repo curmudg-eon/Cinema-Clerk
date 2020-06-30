@@ -32,6 +32,8 @@ bot.on(.messageCreate) { data in //Message Handler
             addMovie(msg: msg)
         } else if content.hasPrefix(">showlist") || content.hasPrefix(">showwatchlist") {
             msg.reply(with: displayWatchList())
+        } else if content.hasPrefix(">dice") {
+            dice(msg: msg)
         } else {
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
@@ -50,26 +52,26 @@ func addMovie(msg: Message) {
         title = strArr.joined(separator: " ")
         clerk.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!))
         msg.reply(with: """
-        \(msg.author!.username!) added *\(title)* to the watchlist.
-        Link: \(link)
-        """)
+            \(msg.author!.username!) added *\(title)* to the watchlist.
+            Link: \(link)
+            """)
     } else {
         clerk.addPick(pick: WatchPick(title: title, submitter: msg.author!))
         msg.reply(with: """
-        \(msg.author!.username!) added *\(title)* to the watchlist.
-        """)
+            \(msg.author!.username!) added *\(title)* to the watchlist.
+            """)
     }
-   
-    //msg.delete() //I'm not sure how I feel about this. Deleting the user message makes chat cleaner, but it also removes other users' ability to see what commands can be used to do what. If I leave the message it's like a little invitation to play with the bot
+    
+    //msg.delete() //I'm not sure how I feel about this. Deleting the user message makes chat cleaner, but it also removes other users' ability to see what commands can be used to do what. If I leave the command message it's like a little invitation to play with the bot
 }
 
 func displayWatchList () -> String {
-    if(clerk.getWatchList().isEmpty) {
+    if(clerk.getVotingList().isEmpty) {
         return "Are you monkeying around? There's nothing in the watchlist!"
     }
     var printText: String = ""
     var count: Int = 1
-    for movie in clerk.getWatchList() {
+    for movie in clerk.getVotingList() {
         printText.append("[\(count)]: " + movie.getTitle() + "\n")
         count+=1
     }
@@ -81,20 +83,25 @@ func openVoting(msg: Message) {
 }
 
 func dice(msg: Message) {
-    msg.reply(with: "I picked *"+clerk.rollDice().pick.title+"!*")
+    if clerk.votingList.isEmpty {
+        msg.reply(with: "Hey idiot the voting list is empty.")
+    } else {
+        msg.reply(with: "I picked *"+clerk.rollDice().pick.title+"!*")
+    }
+    
 }
 
 /*Features for later
  func bump (title: String) {
-    upvote a pick on
+ upvote a pick on
  }
  func showEntries () {
-    show all entries a person has made
+ show all entries a person has made
  }
-*/
+ */
 
 
- 
+
 
 
 bot.connect()
