@@ -1,13 +1,23 @@
 import Sword
 
+/*
+ Main.swift is a bot that interfaces with Discord services using the Sword library.
+ The purpose of this bot is just to manage a group of friends' movie picks and watchlists.
+ The backend code used to manage the actual picks and data is separated in order to allow for later development into a full stack Appleß app.
+ 
+ */
+
+
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
 let helpMessage = """
 ```
-Very well, here are your options:
+Very well, here are your options: \n
 >help : Get a list of commands this bot can execute. \n
 >openVoting : Opens a new watchlist for users to add movies. \n
->addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie. \n
->dice : closes voting on current watchlist and picks a movie at random. \n
+>addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie pick. Ex: >addMovie Baby Driver https://www.fastIsBast.com \n
+>dice : Closes voting on current watchlist and picks a movie at random. \n
+>streamingLink : Displays a link where everyone will go to watch the movie. My friends use Metastream https://getmetastream.com. \n
+>setStreamingLink (link): Changes the streaming link to the link provided.
 ```
 """
 
@@ -20,10 +30,12 @@ var clerk = CinemaClerk()
 
 bot.editStatus(to: "online", watching: ">help")
 
-bot.on(.messageCreate) { data in //Message Handler
+
+//This handles all messages that the bot receives.
+bot.on(.messageCreate) { data in
     let msg = data as! Message
     
-    if msg.content.hasPrefix(">")  {
+    if msg.content.hasPrefix(">")  {   //Check for prefix before running rest of conditionals
         let content = msg.content.lowercased()
         
         if content.hasPrefix(">help") { //This could potentially be a switch statement? That may be less memory efficient.
@@ -34,6 +46,10 @@ bot.on(.messageCreate) { data in //Message Handler
             msg.reply(with: displayWatchList())
         } else if content.hasPrefix(">dice") {
             dice(msg: msg)
+        } else if content.hasPrefix(">streaminglink") {
+            msg.reply(with: "The streaming link is: " + clerk.streamingLink)
+        } else if content.hasPrefix(">setstreaminglink") {
+            msg.reply(with: clerk.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(clerk.streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
         } else {
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
@@ -50,13 +66,13 @@ func addMovie(msg: Message) {
         var strArr = title.split(separator: " ", omittingEmptySubsequences: true)
         link = String(strArr.removeLast())
         title = strArr.joined(separator: " ")
-        clerk.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!))
+        clerk.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
         msg.reply(with: """
             \(msg.author!.username!) added *\(title)* to the watchlist.
             Link: \(link)
             """)
     } else {
-        clerk.addPick(pick: WatchPick(title: title, submitter: msg.author!))
+        clerk.addPick(pick: WatchPick(title: title, submitter: msg.author!.username!))
         msg.reply(with: """
             \(msg.author!.username!) added *\(title)* to the watchlist.
             """)

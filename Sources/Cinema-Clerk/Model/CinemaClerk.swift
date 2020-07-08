@@ -2,7 +2,7 @@ import Sword
 import Foundation
 
 struct CinemaClerk {
-    var streamingLink: URL? = nil
+    var streamingLink: String = "No streaming link"
     var watchList: [WatchPick] = [] //try sets
     var watchedList: [WatchPick] = []
     var votingList: [WatchPick] = []
@@ -32,16 +32,23 @@ struct CinemaClerk {
         defer { //Makes it so voting list is deleted after a random item is picked to save memory & prep for next voting list
             votingList.removeAll(keepingCapacity: false)
         }*/
-        return votingList.randomElement()!
+        watchedList.append(votingList.randomElement()!)
+        return watchedList.last!
             
     }
     
-    
-    
-    mutating func setStreamingLink (link: URL?) {
-        if (link != nil) {
-            streamingLink = link
-        }
+    mutating func openVoting() {
+        votingList.removeAll()
     }
     
+    
+    
+    mutating func setStreamingLink (link: String) -> Bool { //Returns based on success or failure. 
+        if !link.isEmpty && link.contains("https://") || link.contains("www.") {
+            streamingLink = link.deletingPrefix(">setStreamingLink ")
+            return true
+        } else {
+            return false
+        }
+    }
 }
