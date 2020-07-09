@@ -15,20 +15,27 @@ let helpMessage = """
 ```
 Very well, here are your options: \n
 >help : Get a list of commands this bot can execute. \n
->openVoting : Opens a new watchlist for users to add movies. \n
+>openVoting : Clears the previous watchlist and allows users to start adding movies. \n
 >addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie pick. Ex: >addMovie Baby Driver https://www.fastIsBast.com \n
 >dice : Closes voting on current watchlist and picks a movie at random. \n
 >streamingLink : Displays a link where everyone will go to watch the movie. My friends use Metastream https://getmetastream.com. \n
 >setStreamingLink (link): Changes the streaming link to the link provided.
 ```
 """
-var clerk = CinemaClerk()
+
+var manager: [int:CinemaClerk] = [:]
 
 //I need to do this to check if the bot has record of every server it's a part of.
 bot.on(.ready) { data in
   let user = data as! User
     for guild in bot.guilds {
-        guild.key
+        if manager.keys.contains(guild.key.hashValue) {
+            continue
+        } else {
+            // Add guild to dictionary
+            // Use helper function to add guilds to dictionary
+        }
+        
     }
 }
 
@@ -52,6 +59,8 @@ bot.on(.messageCreate) { data in
             addMovie(msg: msg)
         } else if content.hasPrefix(">showlist") || content.hasPrefix(">showwatchlist") {
             msg.reply(with: displayWatchList())
+        } else if content.hasPrefix(">openvoting") {
+            clerk.openVoting()
         } else if content.hasPrefix(">dice") {
             dice(msg: msg)
         } else if content.hasPrefix(">streaminglink") {
@@ -66,6 +75,8 @@ bot.on(.messageCreate) { data in
 
 
 ///Helper Functions Follow
+
+
 func addMovie(msg: Message) {
     var title: String = msg.content
     title = title.deletingPrefix(">addMovie ")
