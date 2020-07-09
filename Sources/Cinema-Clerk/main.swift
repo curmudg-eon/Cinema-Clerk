@@ -7,6 +7,8 @@ import Sword
  
  */
 
+// https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing - bot is currently only available to add by author
+
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
 let helpMessage = """
@@ -20,16 +22,22 @@ Very well, here are your options: \n
 >setStreamingLink (link): Changes the streaming link to the link provided.
 ```
 """
-
-
 var clerk = CinemaClerk()
 
+//I need to do this to check if the bot has record of every server it's a part of.
+bot.on(.ready) { data in
+  let user = data as! User
+    for guild in bot.guilds {
+        guild.key
+    }
+}
 
+bot.on(.guildCreate) { data in
+  let guild = data as! Guild
+    //From here add a new Guild Category called Movie Night that includes voice channel Movie Theatre and Text Channel Movie Picks
+}
 
-// https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing
-
-bot.editStatus(to: "online", watching: ">help")
-
+//bot.on(.guildMemberAdd) - I have to power to annoy people to no end and plug my own bot with this
 
 //This handles all messages that the bot receives.
 bot.on(.messageCreate) { data in
@@ -57,6 +65,7 @@ bot.on(.messageCreate) { data in
 }
 
 
+///Helper Functions Follow
 func addMovie(msg: Message) {
     var title: String = msg.content
     title = title.deletingPrefix(">addMovie ")
@@ -116,9 +125,6 @@ func dice(msg: Message) {
  }
  */
 
-
-
-
-
 bot.connect()
-print("connected as \(bot)")
+bot.editStatus(to: "online", watching: ">help")
+
