@@ -11,6 +11,7 @@ import Sword
 
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
+
 let helpMessage = """
 ```
 Very well, here are your options: \n
@@ -27,54 +28,63 @@ var manager: [int:CinemaClerk] = [:]
 
 //I need to do this to check if the bot has record of every server it's a part of.
 bot.on(.ready) { data in
-  let user = data as! User
+    let user = data as! User
     for guild in bot.guilds {
         if manager.keys.contains(guild.key.hashValue) {
             continue
         } else {
-            // Add guild to dictionary
-            // Use helper function to add guilds to dictionary
+            addGuildToClientele(guild: guild)
         }
         
     }
 }
 
 bot.on(.guildCreate) { data in
-  let guild = data as! Guild
+    let guild = data as! Guild
+    addGuildToClientele(guild: guild)
     //From here add a new Guild Category called Movie Night that includes voice channel Movie Theatre and Text Channel Movie Picks
 }
 
-//bot.on(.guildMemberAdd) - I have to power to annoy people to no end and plug my own bot with this
+//bot.on(.guildMemberAdd) - I have the power to annoy people to no end and plug my own bot with this. "You and me Spidaman, we could rule this city Spidaman!" -Videogamedunkey
 
-//This handles all messages that the bot receives.
+/// This handles all messages that the bot receives.
 bot.on(.messageCreate) { data in
     let msg = data as! Message
-    
-    if msg.content.hasPrefix(">")  {   //Check for prefix before running rest of conditionals
-        let content = msg.content.lowercased()
-        
-        if content.hasPrefix(">help") { //This could potentially be a switch statement? That may be less memory efficient.
-            msg.reply(with: helpMessage)
-        } else if content.hasPrefix(">addmovie") {
-            addMovie(msg: msg)
-        } else if content.hasPrefix(">showlist") || content.hasPrefix(">showwatchlist") {
-            msg.reply(with: displayWatchList())
-        } else if content.hasPrefix(">openvoting") {
-            clerk.openVoting()
-        } else if content.hasPrefix(">dice") {
-            dice(msg: msg)
-        } else if content.hasPrefix(">streaminglink") {
-            msg.reply(with: "The streaming link is: " + clerk.streamingLink)
-        } else if content.hasPrefix(">setstreaminglink") {
-            msg.reply(with: clerk.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(clerk.streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
-        } else {
-            msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
+    if !msg.channel.type == .dm {  ///  Make sure users aren't sliding in bot dm's
+        if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
+            let content = msg.content.lowercased() //Substring out the full prefix here probably.
+            
+            if content.hasPrefix(">help") { //This should be a switch statement for efficiency & so I don't run .hasPrefix 15 times
+                msg.reply(with: helpMessage)
+            } else if content.hasPrefix(">addmovie") {
+                addMovie(msg: msg)
+            } else if content.hasPrefix(">showlist") || content.hasPrefix(">showwatchlist") {
+                msg.reply(with: displayWatchList())
+            } else if content.hasPrefix(">openvoting") {
+                clerk.openVoting()
+            } else if content.hasPrefix(">dice") {
+                dice(msg: msg)
+            } else if content.hasPrefix(">streaminglink") {
+                msg.reply(with: "The streaming link is: " + clerk.streamingLink)
+            } else if content.hasPrefix(">setstreaminglink") {
+                msg.reply(with: clerk.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(manager[GuildChannel()].streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
+            } else {
+                msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
+            }
+        } else if content.hasPrefix("****") { //This is just scaffolding must remove later
+            for (hash, clerk) in manager {
+                msg.reply(with: hash + "\n")
+            }
         }
     }
 }
 
 
 ///Helper Functions Follow
+
+func addGuildToClientele(guild: Guild) {
+    manager[guild.id.hashValue] = CinemaClerk(guild.id.hashValue)
+}
 
 
 func addMovie(msg: Message) {
@@ -86,7 +96,7 @@ func addMovie(msg: Message) {
         var strArr = title.split(separator: " ", omittingEmptySubsequences: true)
         link = String(strArr.removeLast())
         title = strArr.joined(separator: " ")
-        clerk.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
+        manager[].addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
         msg.reply(with: """
             \(msg.author!.username!) added *\(title)* to the watchlist.
             Link: \(link)
