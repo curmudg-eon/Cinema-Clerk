@@ -1,17 +1,15 @@
-import Sword
 import Foundation
 
-struct CinemaClerk {
+class CinemaClerk {
     var streamingLink: String = "No streaming link"
     var watchList: [WatchPick] = [] //try sets
     var watchedList: [WatchPick] = []
     var votingList: [WatchPick] = []
     //var showList: [String] = []
     //var videos: [String] = []
-    var textChannel: TextChannel? = nil
     
-    init(identifier: Int = 0) {
-        let id: Int = identifier
+    init() {
+        
     }
        
     func getWatchList () -> [WatchPick] {
@@ -23,11 +21,11 @@ struct CinemaClerk {
     }
 
     
-    mutating func addPick(pick: WatchPick) {
+     func addPick(pick: WatchPick) {
         votingList.append(pick)
     }
     
-    mutating func rollDice() -> WatchPick {
+     func rollDice() -> WatchPick {
         /*Not sure if I like this functionality
         defer { //Makes it so voting list is deleted after a random item is picked to save memory & prep for next voting list
             votingList.removeAll(keepingCapacity: false)
@@ -37,13 +35,13 @@ struct CinemaClerk {
             
     }
     
-    mutating func openVoting() {
+     func openVoting() {
         votingList.removeAll()
     }
     
     
     
-    mutating func setStreamingLink (link: String) -> Bool { //Returns based on success or failure. 
+     func setStreamingLink (link: String) -> Bool { //Returns based on success or failure. 
         if !link.isEmpty && link.contains("https://") || link.contains("www.") {
             streamingLink = link.deletingPrefix(">setStreamingLink ")
             return true

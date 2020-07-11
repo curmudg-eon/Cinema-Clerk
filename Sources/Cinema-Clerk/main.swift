@@ -25,7 +25,7 @@ Very well, here are your options: \n
 """
 
 var manager: [Int:CinemaClerk] = [0:CinemaClerk()]
-var clerk = CinemaClerk(identifier: 0)
+var clerk = CinemaClerk()
 //I need to do this to check if the bot has record of every server it's a part of.
 bot.on(.ready) { data in
     let user = data as! User
@@ -69,9 +69,9 @@ bot.on(.messageCreate) { data in
                 msg.reply(with: "The streaming link is: " + clerk.streamingLink)
             } else if content.hasPrefix(">setstreaminglink") {
                 msg.reply(with: manager[guildId]!.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(manager[guildId]!.streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
-            } else if content.hasPrefix("****") { //This is just scaffolding must remove later
+            } else if content.hasPrefix(">*") { //This is just scaffolding must remove later
                 for (hash, _) in manager {
-                    msg.reply(with: "\(hash) \n")
+                    msg.reply(with: "\(hash) \n") //Print list of guild IDs
                 }
             } else {
                 msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
@@ -84,7 +84,7 @@ bot.on(.messageCreate) { data in
 ///Helper Functions Follow
 
 func addGuildToClientele(guild: Guild) {
-    manager[guild.id.hashValue] = CinemaClerk(identifier: guild.id.hashValue)
+    manager[guild.id.hashValue] = CinemaClerk()
 }
 
 func guildIDFromMessage(msg: Message) -> Int {

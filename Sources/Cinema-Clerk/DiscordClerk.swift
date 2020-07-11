@@ -6,12 +6,19 @@
 //
 
 import Foundation
+import Sword
 
-
-class Manager {
+class DiscordClerk: CinemaClerk {
     
-    init() {
-        
+    var textChannel: GuildText?
+    
+    init(guild: Guild) {
+        let guild: Guild = guild
+        let id: Int = guild.id.hashValue
+    }
+    
+    func setTextChannel (textChl: GuildText) {
+        textChannel = textChl
     }
     
     

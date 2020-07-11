@@ -13,3 +13,5 @@ extension String {
         return String(self.dropFirst(prefix.count))
     }
 }
+
+//!!! Add a getGuildFromMessage extension !!!!
