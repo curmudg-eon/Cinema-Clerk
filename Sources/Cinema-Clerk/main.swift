@@ -24,8 +24,8 @@ Very well, here are your options: \n
 ```
 """
 
-var manager: [int:CinemaClerk] = [:]
-
+var manager: [Int:CinemaClerk] = [0:CinemaClerk()]
+var clerk = CinemaClerk(identifier: 0)
 //I need to do this to check if the bot has record of every server it's a part of.
 bot.on(.ready) { data in
     let user = data as! User
@@ -33,7 +33,7 @@ bot.on(.ready) { data in
         if manager.keys.contains(guild.key.hashValue) {
             continue
         } else {
-            addGuildToClientele(guild: guild)
+            addGuildToClientele(guild: guild.value)
         }
         
     }
@@ -50,9 +50,10 @@ bot.on(.guildCreate) { data in
 /// This handles all messages that the bot receives.
 bot.on(.messageCreate) { data in
     let msg = data as! Message
-    if !msg.channel.type == .dm {  ///  Make sure users aren't sliding in bot dm's
+    if !(msg.channel.type == .dm) {  ///  Make sure users aren't sliding in bot dm's
         if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
             let content = msg.content.lowercased() //Substring out the full prefix here probably.
+            let guildId: Int = guildIDFromMessage(msg: msg)
             
             if content.hasPrefix(">help") { //This should be a switch statement for efficiency & so I don't run .hasPrefix 15 times
                 msg.reply(with: helpMessage)
@@ -67,13 +68,13 @@ bot.on(.messageCreate) { data in
             } else if content.hasPrefix(">streaminglink") {
                 msg.reply(with: "The streaming link is: " + clerk.streamingLink)
             } else if content.hasPrefix(">setstreaminglink") {
-                msg.reply(with: clerk.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(manager[GuildChannel()].streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
+                msg.reply(with: manager[guildId]!.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(manager[guildId]!.streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
+            } else if content.hasPrefix("****") { //This is just scaffolding must remove later
+                for (hash, _) in manager {
+                    msg.reply(with: "\(hash) \n")
+                }
             } else {
                 msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
-            }
-        } else if content.hasPrefix("****") { //This is just scaffolding must remove later
-            for (hash, clerk) in manager {
-                msg.reply(with: hash + "\n")
             }
         }
     }
@@ -83,9 +84,12 @@ bot.on(.messageCreate) { data in
 ///Helper Functions Follow
 
 func addGuildToClientele(guild: Guild) {
-    manager[guild.id.hashValue] = CinemaClerk(guild.id.hashValue)
+    manager[guild.id.hashValue] = CinemaClerk(identifier: guild.id.hashValue)
 }
 
+func guildIDFromMessage(msg: Message) -> Int {
+    return (msg.channel as! GuildChannel).guild!.id.hashValue
+}
 
 func addMovie(msg: Message) {
     var title: String = msg.content
@@ -96,7 +100,7 @@ func addMovie(msg: Message) {
         var strArr = title.split(separator: " ", omittingEmptySubsequences: true)
         link = String(strArr.removeLast())
         title = strArr.joined(separator: " ")
-        manager[].addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
+        manager[guildIDFromMessage(msg: msg)]!.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
         msg.reply(with: """
             \(msg.author!.username!) added *\(title)* to the watchlist.
             Link: \(link)

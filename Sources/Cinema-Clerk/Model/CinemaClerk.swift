@@ -10,8 +10,8 @@ struct CinemaClerk {
     //var videos: [String] = []
     var textChannel: TextChannel? = nil
     
-    init(identifier: int) {
-        let id: int = identifier
+    init(identifier: Int = 0) {
+        let id: Int = identifier
     }
        
     func getWatchList () -> [WatchPick] {
