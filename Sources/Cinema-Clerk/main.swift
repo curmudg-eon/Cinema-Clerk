@@ -50,32 +50,9 @@ bot.on(.guildCreate) { data in
 /// This handles all messages that the bot receives.
 bot.on(.messageCreate) { data in
     let msg = data as! Message
-    if !(msg.channel.type == .dm) {  ///  Make sure users aren't sliding in bot dm's
+    if !(msg.channel.type == .dm) {//Also check for bot messages  ///  Make sure users aren't sliding in bot dm's
         if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
-            let content = msg.content.lowercased() //Substring out the full prefix here probably.
-            let guildId: Int = guildIDFromMessage(msg: msg)
-            
-            if content.hasPrefix(">help") { //This should be a switch statement for efficiency & so I don't run .hasPrefix 15 times
-                msg.reply(with: helpMessage)
-            } else if content.hasPrefix(">addmovie") {
-                addMovie(msg: msg)
-            } else if content.hasPrefix(">showlist") || content.hasPrefix(">showwatchlist") {
-                msg.reply(with: displayWatchList())
-            } else if content.hasPrefix(">openvoting") {
-                clerk.openVoting()
-            } else if content.hasPrefix(">dice") {
-                dice(msg: msg)
-            } else if content.hasPrefix(">streaminglink") {
-                msg.reply(with: "The streaming link is: " + clerk.streamingLink)
-            } else if content.hasPrefix(">setstreaminglink") {
-                msg.reply(with: manager[guildId]!.setStreamingLink(link: msg.content) ? "Streaming link has been set to \(manager[guildId]!.streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
-            } else if content.hasPrefix(">*") { //This is just scaffolding must remove later
-                for (hash, _) in manager {
-                    msg.reply(with: "\(hash) \n") //Print list of guild IDs
-                }
-            } else {
-                msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
-            }
+        
         }
     }
 }
@@ -89,56 +66,6 @@ func addGuildToClientele(guild: Guild) {
 
 func guildIDFromMessage(msg: Message) -> Int {
     return (msg.channel as! GuildChannel).guild!.id.hashValue
-}
-
-func addMovie(msg: Message) {
-    var title: String = msg.content
-    title = title.deletingPrefix(">addMovie ")
-    var link: String = "No link provided"
-    
-    if title.contains("https://") || title.contains("www.") {
-        var strArr = title.split(separator: " ", omittingEmptySubsequences: true)
-        link = String(strArr.removeLast())
-        title = strArr.joined(separator: " ")
-        manager[guildIDFromMessage(msg: msg)]!.addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
-        msg.reply(with: """
-            \(msg.author!.username!) added *\(title)* to the watchlist.
-            Link: \(link)
-            """)
-    } else {
-        clerk.addPick(pick: WatchPick(title: title, submitter: msg.author!.username!))
-        msg.reply(with: """
-            \(msg.author!.username!) added *\(title)* to the watchlist.
-            """)
-    }
-    
-    //msg.delete() //I'm not sure how I feel about this. Deleting the user message makes chat cleaner, but it also removes other users' ability to see what commands can be used to do what. If I leave the command message it's like a little invitation to play with the bot
-}
-
-func displayWatchList () -> String {
-    if(clerk.getVotingList().isEmpty) {
-        return "Are you monkeying around? There's nothing in the watchlist!"
-    }
-    var printText: String = ""
-    var count: Int = 1
-    for movie in clerk.getVotingList() {
-        printText.append("[\(count)]: " + movie.getTitle() + "\n")
-        count+=1
-    }
-    return printText
-}
-
-func openVoting(msg: Message) {
-    
-}
-
-func dice(msg: Message) {
-    if clerk.votingList.isEmpty {
-        msg.reply(with: "Hey idiot the voting list is empty.")
-    } else {
-        msg.reply(with: "I picked *"+clerk.rollDice().pick.title+"!*")
-    }
-    
 }
 
 /*Features for later
