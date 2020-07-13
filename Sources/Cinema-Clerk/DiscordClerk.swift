@@ -35,7 +35,7 @@ class DiscordClerk: CinemaClerk {
         textChannel = textChl
     }
     
-    func handleMessages (msg: Message) {
+    func handleMessage (msg: Message) {
         let prefix = String(msg.content.lowercased().split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true).first!)
         switch prefix {
         case "help":
@@ -81,10 +81,10 @@ class DiscordClerk: CinemaClerk {
     }
     
     func dice(msg: Message) {
-        if clerk.votingList.isEmpty {
+        if votingList.isEmpty {
             msg.reply(with: "Hey idiot the voting list is empty.")
         } else {
-            msg.reply(with: "I picked *"+clerk.rollDice().pick.title+"!*")
+            msg.reply(with: "I picked *"+rollDice().pick.title+"!*")
         }
         
     }
