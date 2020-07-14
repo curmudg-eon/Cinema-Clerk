@@ -10,15 +10,15 @@ import Sword
 
 class DiscordClerk: CinemaClerk {
     var textChannel: GuildText?
-    let guild: Guild
     let id: Int
     
     let helpMessage = """
     ```
-    Very well, here are your options: \n
+    Absolutely! Here are your options: \n
     >help : Get a list of commands this bot can execute. \n
     >openVoting : Clears the previous watchlist and allows users to start adding movies. \n
     >addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie pick. Ex: >addMovie Baby Driver https://www.fastIsBast.com \n
+    >showList : Displays the
     >dice : Closes voting on current watchlist and picks a movie at random. \n
     >streamingLink : Displays a link where everyone will go to watch the movie. My friends use Metastream https://getmetastream.com. \n
     >setStreamingLink (link): Changes the streaming link to the link provided.
@@ -26,9 +26,8 @@ class DiscordClerk: CinemaClerk {
     """
     
     
-    init(guild: Guild) {
-        self.guild = guild
-        id = guild.id.hashValue
+    init(snowflakeID: Int) {
+        id = snowflakeID
     }
     
     func setTextChannel (textChl: GuildText) {
@@ -36,7 +35,7 @@ class DiscordClerk: CinemaClerk {
     }
     
     func handleMessage (msg: Message) {
-        let prefix = String(msg.content.lowercased().split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true).first!)
+        let prefix = String(msg.content.lowercased().split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true).first!).deletingPrefix(">")
         switch prefix {
         case "help":
             msg.reply(with: helpMessage)
@@ -46,6 +45,7 @@ class DiscordClerk: CinemaClerk {
             msg.reply(with: displayWatchList())
         case "openvoting":
             openVoting()
+            msg.reply(with: "A new voting list has been opened to submit Movie Picks in!")
         case "dice":
             dice(msg: msg)
         case "streaminglink":

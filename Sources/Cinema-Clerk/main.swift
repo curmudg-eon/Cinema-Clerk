@@ -40,11 +40,11 @@ bot.on(.messageCreate) { data in
     let msg = data as! Message
     if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
         if msg.channel.type == .guildText {  ///  Make sure users aren't sliding in bot dm's
-            manager[guildIDFromMessage(msg: msg)]?.handleMessage(msg: msg)
+            manager[guildIDFromMessage(msg: msg), default: DiscordClerk(snowflakeID: guildIDFromMessage(msg: msg))].handleMessage(msg: msg)
         } else if  msg.channel.type == .groupDM {
-            manager[msg.channel.id.hashValue]?.handleMessage(msg: msg)
+            manager[msg.channel.id.hashValue, default: DiscordClerk(snowflakeID: msg.channel.id.hashValue)].handleMessage(msg: msg)
         } else if msg.channel.type == .dm {
-            manager[msg.author!.id.hashValue]?.handleMessage(msg: msg)
+            manager[msg.author!.id.hashValue, default: DiscordClerk(snowflakeID: msg.author!.id.hashValue)].handleMessage(msg: msg)
         }
     }
 }
@@ -53,7 +53,11 @@ bot.on(.messageCreate) { data in
 ///Helper Functions Follow
 
 func addGuildToClientele(guild: Guild) {
-    manager[guild.id.hashValue] = DiscordClerk(guild: guild)
+    manager[guild.id.hashValue] = DiscordClerk(snowflakeID: guild.id.hashValue)
+}
+
+func guildFromMessage(msg: Message) -> Guild {
+    return (msg.channel as! GuildChannel).guild!
 }
 
 func guildIDFromMessage(msg: Message) -> Int {
