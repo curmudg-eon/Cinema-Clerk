@@ -74,9 +74,7 @@ class DiscordClerk: CinemaClerk {
                 """)
         } else {
             addPick(pick: WatchPick(title: title, submitter: msg.author!.username!))
-            msg.reply(with: """
-                \(msg.author!.username!) added *\(title)* to the watchlist.
-                """)
+            msg.reply(with: "\(msg.author!.username!) added *\(title)* to the watchlist.")
         }
     }
     

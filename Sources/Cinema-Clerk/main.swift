@@ -11,7 +11,7 @@ import Sword
 
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
-var manager: [Int:DiscordClerk] = [:]
+var manager = [Int: DiscordClerk]()
 
 
 //I need to do this to check if the bot has record of every server it's a part of.
@@ -21,7 +21,7 @@ bot.on(.ready) { data in
         if manager.keys.contains(guild.key.hashValue) {
             continue
         } else {
-            addGuildToClientele(guild: guild.value)
+            addToClientele(id: guild.value.id.hashValue)
         }
         
     }
@@ -29,7 +29,7 @@ bot.on(.ready) { data in
 
 bot.on(.guildCreate) { data in
     let guild = data as! Guild
-    addGuildToClientele(guild: guild)
+    addToClientele(id: guild.id.hashValue)
     //From here add a new Guild Category called Movie Night that includes voice channel Movie Theatre and Text Channel Movie Picks
 }
 
@@ -40,11 +40,16 @@ bot.on(.messageCreate) { data in
     let msg = data as! Message
     if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
         if msg.channel.type == .guildText {  ///  Make sure users aren't sliding in bot dm's
-            manager[guildIDFromMessage(msg: msg), default: DiscordClerk(snowflakeID: guildIDFromMessage(msg: msg))].handleMessage(msg: msg)
+            (manager[guildIDFromMessage(msg: msg)] ?? addToClientele(id: guildIDFromMessage(msg: msg))).handleMessage(msg: msg) ///Check if the DiscordClerk object exists and if it doesn't, lazily initialize it
         } else if  msg.channel.type == .groupDM {
-            manager[msg.channel.id.hashValue, default: DiscordClerk(snowflakeID: msg.channel.id.hashValue)].handleMessage(msg: msg)
+            (manager[msg.channel.id.hashValue] ?? addToClientele(id: msg.channel.id.hashValue)).handleMessage(msg: msg)
         } else if msg.channel.type == .dm {
-            manager[msg.author!.id.hashValue, default: DiscordClerk(snowflakeID: msg.author!.id.hashValue)].handleMessage(msg: msg)
+            (manager[msg.author!.id.hashValue] ?? addToClientele(id: msg.author!.id.hashValue)).handleMessage(msg: msg)
+        }
+    } else if msg.content.hasPrefix(")") {
+        msg.reply(with: "# of clerks: \(manager.count) \n Snowflake id of message \(guildIDFromMessage(msg: msg))")
+        for clerk in manager {
+            msg.reply(with: "Key:\(clerk.key) snowFlakeID:\(clerk.value.id)")
         }
     }
 }
@@ -52,8 +57,9 @@ bot.on(.messageCreate) { data in
 
 ///Helper Functions Follow
 
-func addGuildToClientele(guild: Guild) {
-    manager[guild.id.hashValue] = DiscordClerk(snowflakeID: guild.id.hashValue)
+func addToClientele(id: Int) -> DiscordClerk {
+    manager[id] = DiscordClerk(snowflakeID: id)
+    return manager[id]!
 }
 
 func guildFromMessage(msg: Message) -> Guild {
