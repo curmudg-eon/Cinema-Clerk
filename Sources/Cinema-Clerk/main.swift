@@ -39,13 +39,7 @@ bot.on(.guildCreate) { data in
 bot.on(.messageCreate) { data in
     let msg = data as! Message
     if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
-        if msg.channel.type == .guildText {  ///  Make sure users aren't sliding in bot dm's
-            (manager[guildIDFromMessage(msg: msg)] ?? addToClientele(id: guildIDFromMessage(msg: msg))).handleMessage(msg: msg) ///Check if the DiscordClerk object exists and if it doesn't, lazily initialize it
-        } else if  msg.channel.type == .groupDM {
-            (manager[msg.channel.id.hashValue] ?? addToClientele(id: msg.channel.id.hashValue)).handleMessage(msg: msg)
-        } else if msg.channel.type == .dm {
-            (manager[msg.author!.id.hashValue] ?? addToClientele(id: msg.author!.id.hashValue)).handleMessage(msg: msg)
-        }
+        (manager[msg.idOfLocation()] ?? addToClientele(id: msg.idOfLocation())).handleMessage(msg: msg)
     } else if msg.content.hasPrefix(")") {
         msg.reply(with: "# of clerks: \(manager.count) \n Snowflake id of message \(guildIDFromMessage(msg: msg))")
         for clerk in manager {
