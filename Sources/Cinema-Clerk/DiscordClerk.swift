@@ -18,7 +18,7 @@ class DiscordClerk: CinemaClerk {
     >help : Get a list of commands this bot can execute. \n
     >openVoting : Clears the previous watchlist and allows users to start adding movies. \n
     >addMovie [name] (link) : Adds a movie named [name] to current watchlist. Optionally, add (link) to attach a link to the movie pick. Ex: >addMovie Baby Driver https://www.fastIsBast.com \n
-    >showList : Displays the
+    >showList : Displays the voting list.
     >dice : Closes voting on current watchlist and picks a movie at random. \n
     >streamingLink : Displays a link where everyone will go to watch the movie. My friends use Metastream https://getmetastream.com. \n
     >setStreamingLink (link): Changes the streaming link to the link provided.
@@ -29,6 +29,7 @@ class DiscordClerk: CinemaClerk {
     init(snowflakeID: Int) {
         id = snowflakeID
     }
+
     
     func setTextChannel (textChl: GuildText) {
         textChannel = textChl
@@ -51,7 +52,7 @@ class DiscordClerk: CinemaClerk {
         case "streaminglink":
             msg.reply(with: "The streaming link is: \(streamingLink)")
         case "setstreaminglink":
-            msg.reply(with: setStreamingLink(link: msg.content) ? "Streaming link has been set to \(streamingLink) !" : "The link provided didn't seem to work. Make sure it's a proper web link.")
+            msg.reply(with: setStreamingLink(link: msg.content) ? "Streaming link has been set! " : "The link provided didn't seem to work. Make sure it's a proper web link.")
         default:
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
@@ -82,9 +83,18 @@ class DiscordClerk: CinemaClerk {
         if votingList.isEmpty {
             msg.reply(with: "Hey idiot the voting list is empty.")
         } else {
-            msg.reply(with: "I picked *"+rollDice().pick.title+"!*")
+            msg.reply(with: "I picked *"+rollDice().title+"!*")
         }
         
+    }
+    
+    func setStreamingLink (link: String) -> Bool { //Returns based on success or failure.
+        if !link.isEmpty && link.contains("https://") || link.contains("www.") {
+            streamingLink = link.deletingPrefix(">setStreamingLink ")
+            return true
+        } else {
+            return false
+        }
     }
     
     func displayWatchList () -> String {

@@ -17,14 +17,6 @@ var manager = [Int: DiscordClerk]()
 //I need to do this to check if the bot has record of every server it's a part of.
 bot.on(.ready) { data in
     bot.editStatus(to: "online", watching: ">help")
-    for guild in bot.guilds {
-        if manager.keys.contains(guild.key.hashValue) {
-            continue
-        } else {
-            addToClientele(id: guild.value.id.hashValue)
-        }
-        
-    }
 }
 
 bot.on(.guildCreate) { data in
@@ -41,7 +33,7 @@ bot.on(.messageCreate) { data in
     if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
         (manager[msg.idOfLocation()] ?? addToClientele(id: msg.idOfLocation())).handleMessage(msg: msg)
     } else if msg.content.hasPrefix(")") {
-        msg.reply(with: "# of clerks: \(manager.count) \n Snowflake id of message \(guildIDFromMessage(msg: msg))")
+        msg.reply(with: "# of clerks: \(manager.count)")
         for clerk in manager {
             msg.reply(with: "Key:\(clerk.key) snowFlakeID:\(clerk.value.id)")
         }
