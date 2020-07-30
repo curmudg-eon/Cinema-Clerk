@@ -9,7 +9,7 @@ import Foundation
 import Sword
 
 class DiscordClerk: CinemaClerk, Codable {
-//    var textChannel: GuildText?
+    var textChannel: Int = 0
     let id: Int
     
     let helpMessage = """
@@ -31,9 +31,9 @@ class DiscordClerk: CinemaClerk, Codable {
     }
 
     
-//    func setTextChannel (textChl: GuildText) {
-//        textChannel = textChl
-//    }
+    func setTextChannel (textChl: GuildText) {
+        textChannel = textChl.id.hashValue
+    }
     
     func handleMessage (msg: Message) {
         let prefix = String(msg.content.lowercased().split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true).first!).deletingPrefix(">")
