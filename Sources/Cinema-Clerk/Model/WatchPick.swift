@@ -2,7 +2,7 @@ import Foundation
 
 //Not sure I even need to make this into a struct. I honestly think the whole thing could be a tuple as of its usage right now but not sure how to do it elegantly or do persistent data with it.
 
-struct WatchPick: Codable {
+struct WatchPick {
     var title: String
     var link: String
     var submitter: String

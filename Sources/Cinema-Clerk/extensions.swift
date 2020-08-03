@@ -16,13 +16,13 @@ extension String {
 
 //!!! Add a getGuildFromMessage extension !!!!
 extension Message {
-    func idOfLocation() -> Int {
+    func idOfLocation() -> UInt64 {
         if self.channel.type == .guildText {
-            return (self.channel as! GuildChannel).guild!.id.hashValue
+            return (self.channel as! GuildChannel).guild!.id.rawValue
         } else if  self.channel.type == .groupDM {
-            return self.channel.id.hashValue
+            return self.channel.id.rawValue
         } else if self.channel.type == .dm {
-            return self.author!.id.hashValue
+            return self.author!.id.rawValue
         } else {
             return 0
         }

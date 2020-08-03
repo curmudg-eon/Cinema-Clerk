@@ -10,7 +10,7 @@ import Sword
 
 class DiscordClerk: CinemaClerk, Codable {
     var textChannel: Int = 0
-    let id: Int
+//    let id: Int
     
     let helpMessage = """
     ```
@@ -24,11 +24,6 @@ class DiscordClerk: CinemaClerk, Codable {
     >setStreamingLink (link): Changes the streaming link to the link provided.
     ```
     """
-    
-    
-    init(snowflakeID: Int) {
-        id = snowflakeID
-    }
 
     
     func setTextChannel (textChl: GuildText) {
@@ -109,6 +104,15 @@ class DiscordClerk: CinemaClerk, Codable {
         }
         return printText
     }
+    
+    /*Features for later
+    func bump (title: String) {
+    upvote a pick on
+    }
+    func showEntries () {
+    show all entries a person has made
+    }
+    */
     
     func guildIDFromMessage(msg: Message) -> Int {
         return (msg.channel as! GuildChannel).guild!.id.hashValue

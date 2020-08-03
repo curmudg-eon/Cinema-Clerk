@@ -11,17 +11,15 @@ import Sword
 
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
-var manager = [Int: DiscordClerk]()
+var manager: [UInt64:DiscordClerk] =  loadFromJSON() ?? [:] /// Load if there's data, create an empty Dictionary otherwise.
 
-
-//I need to do this to check if the bot has record of every server it's a part of.
 bot.on(.ready) { data in
     bot.editStatus(to: "online", watching: ">help")
 }
 
 bot.on(.guildCreate) { data in
     let guild = data as! Guild
-    addToClientele(id: guild.id.hashValue)
+    addToClientele(id: guild.id.rawValue)
     //From here add a new Guild Category called Movie Night that includes voice channel Movie Theatre and Text Channel Movie Picks
 }
 
@@ -35,37 +33,29 @@ bot.on(.messageCreate) { data in
     } else if msg.content.hasPrefix(")") {
         msg.reply(with: "# of clerks: \(manager.count)")
         for clerk in manager {
-            msg.reply(with: "Key:\(clerk.key) snowFlakeID:\(clerk.value.id)")
+            msg.reply(with: "Key: \(clerk.key)")
         }
     }
+    saveToJSON(manager)
 }
 
 
 ///Helper Functions Follow
 
-func addToClientele(id: Int) -> DiscordClerk {
-    manager[id] = DiscordClerk(snowflakeID: id)
+func addToClientele(id: UInt64) -> DiscordClerk {
+    manager[id] = DiscordClerk()
     return manager[id]!
 }
 
-func guildFromMessage(msg: Message) -> Guild {
-    return (msg.channel as! GuildChannel).guild!
-}
+//func guildFromMessage(msg: Message) -> Guild {
+//    return (msg.channel as! GuildChannel).guild!
+//}
+//
+//func guildIDFromMessage(msg: Message) -> Int {
+//    return (msg.channel as! GuildChannel).guild!.id.hashValue
+//}
 
-func guildIDFromMessage(msg: Message) -> Int {
-    return (msg.channel as! GuildChannel).guild!.id.hashValue
-}
-
-/*Features for later
- func bump (title: String) {
- upvote a pick on
- }
- func showEntries () {
- show all entries a person has made
- }
- */
-
-bot.editStatus(to: "online", watching: ">help")
 bot.connect()
 
-
+//Fatal error: Unexpectedly found nil while unwrapping an Optional value: file /Users/gabesecula/Documents/Code/Cinema-Clerk/.build/checkouts/Sword/Sources/Sword/Gateway/GatewayHandler.swift, line 46
+//Illegal instruction: 4
