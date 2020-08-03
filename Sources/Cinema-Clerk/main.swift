@@ -12,7 +12,9 @@ import Sword
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string 
 var manager: [UInt64:DiscordClerk] =  loadFromJSON() ?? [:] /// Load if there's data, create an empty Dictionary otherwise.
-
+for clerk in manager {
+    clerk.value.loadWatchPicks()
+}
 bot.on(.ready) { data in
     bot.editStatus(to: "online", watching: ">help")
 }

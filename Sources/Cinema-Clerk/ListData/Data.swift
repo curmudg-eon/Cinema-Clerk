@@ -48,3 +48,27 @@ func saveToJSON(_ object: [UInt64:DiscordClerk]) {
         print("JSONSave error of \(error)")
     }
 }
+
+func loadPicks() -> [WatchPick]? {
+    do {
+        let fileURL = try FileManager.default
+            .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent("pickSave.json")
+        let data = try Data(contentsOf: fileURL)
+        return try JSONDecoder().decode([WatchPick].self, from: data)
+    } catch {
+        return nil
+    }
+}
+
+func savePicks(_ object: [WatchPick]) {
+    do {
+        let fileURL = try FileManager.default
+            .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent("pickSave.json")
+        let encoder = try JSONEncoder().encode(object)
+        try encoder.write(to: fileURL)
+    } catch {
+        print("JSONSave error of \(error)")
+    }
+}

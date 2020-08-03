@@ -9,8 +9,7 @@ import Foundation
 import Sword
 
 class DiscordClerk: CinemaClerk, Codable {
-    var textChannel: Int = 0
-//    let id: Int
+    var textChannel: UInt64 = 0
     
     let helpMessage = """
     ```
@@ -24,10 +23,15 @@ class DiscordClerk: CinemaClerk, Codable {
     >setStreamingLink (link): Changes the streaming link to the link provided.
     ```
     """
-
+    
+    
+    
+    func loadWatchPicks() {
+        votingList = loadPicks() ?? []
+    }
     
     func setTextChannel (textChl: GuildText) {
-        textChannel = textChl.id.hashValue
+        textChannel = textChl.id.rawValue
     }
     
     func handleMessage (msg: Message) {
@@ -51,6 +55,7 @@ class DiscordClerk: CinemaClerk, Codable {
         default:
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
+        savePicks(votingList)
     }
     
     
