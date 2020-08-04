@@ -49,11 +49,11 @@ func saveToJSON(_ object: [UInt64:DiscordClerk]) {
     }
 }
 
-func loadPicks() -> [WatchPick]? {
+func loadPicks(id: UInt64) -> [WatchPick]? {
     do {
         let fileURL = try FileManager.default
             .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appendingPathComponent("pickSave.json")
+            .appendingPathComponent("\(id)Picks.json")
         let data = try Data(contentsOf: fileURL)
         return try JSONDecoder().decode([WatchPick].self, from: data)
     } catch {
@@ -61,11 +61,11 @@ func loadPicks() -> [WatchPick]? {
     }
 }
 
-func savePicks(_ object: [WatchPick]) {
+func savePicks(id: UInt64, _ object: [WatchPick]) {
     do {
         let fileURL = try FileManager.default
             .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appendingPathComponent("pickSave.json")
+            .appendingPathComponent("\(id)Picks.json")
         let encoder = try JSONEncoder().encode(object)
         try encoder.write(to: fileURL)
     } catch {

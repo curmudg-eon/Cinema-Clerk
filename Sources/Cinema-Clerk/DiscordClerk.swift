@@ -10,6 +10,7 @@ import Sword
 
 class DiscordClerk: CinemaClerk, Codable {
     var textChannel: UInt64 = 0
+    let id: UInt64
     
     let helpMessage = """
     ```
@@ -24,10 +25,12 @@ class DiscordClerk: CinemaClerk, Codable {
     ```
     """
     
-    
+    init(snowflakeID: UInt64) {
+        id = snowflakeID
+    }
     
     func loadWatchPicks() {
-        votingList = loadPicks() ?? []
+        votingList = loadPicks(id: id) ?? []
     }
     
     func setTextChannel (textChl: GuildText) {
@@ -55,7 +58,7 @@ class DiscordClerk: CinemaClerk, Codable {
         default:
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
-        savePicks(votingList)
+        savePicks(id: id, votingList)
     }
     
     

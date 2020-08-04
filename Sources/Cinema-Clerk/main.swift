@@ -38,14 +38,14 @@ bot.on(.messageCreate) { data in
             msg.reply(with: "Key: \(clerk.key)")
         }
     }
-    saveToJSON(manager)
 }
 
 
 ///Helper Functions Follow
 
 func addToClientele(id: UInt64) -> DiscordClerk {
-    manager[id] = DiscordClerk()
+    manager[id] = DiscordClerk(snowflakeID: id)
+    saveToJSON(manager) /// Only save when a new manager is added
     return manager[id]!
 }
 
