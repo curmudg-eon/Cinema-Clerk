@@ -47,8 +47,7 @@ class DiscordClerk: CinemaClerk, Codable {
         case "showlist", "showwatchlist":
             msg.reply(with: displayWatchList())
         case "openvoting":
-            openVoting()
-            msg.reply(with: "A new voting list has been opened to submit Movie Picks in!")
+            openVoting(msg: msg)
         case "dice":
             dice(msg: msg)
         case "streaminglink":
@@ -80,6 +79,7 @@ class DiscordClerk: CinemaClerk, Codable {
             addPick(pick: WatchPick(title: title, submitter: msg.author!.username!))
             msg.reply(with: "\(msg.author!.username!) added *\(title)* to the watchlist.")
         }
+        savePicks(id: id, votingList)
     }
     
     func dice(msg: Message) {
@@ -98,6 +98,12 @@ class DiscordClerk: CinemaClerk, Codable {
         } else {
             return false
         }
+    }
+    
+    func openVoting(msg: Message) {
+        votingList.removeAll()
+        msg.reply(with: "A new voting list has been opened to submit Movie Picks in!")
+        savePicks(id: id, votingList)
     }
     
     func displayWatchList () -> String {
