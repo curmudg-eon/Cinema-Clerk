@@ -55,7 +55,7 @@ class DiscordClerk: CinemaClerk, Codable {
         case "setstreaminglink":
             msg.reply(with: setStreamingLink(link: msg.content) ? "Streaming link has been set! " : "The link provided didn't seem to work. Make sure it's a proper web link.")
         case "credits", "rollcredits":
-            msg.reply(with: "A Discord bot by gabeSecula https://github.com/gabeSecula \nArtwork for Clark the Clerk by Barbara Chernyavsky @obabsu")
+            msg.reply(with: "A Discord bot by gabeSecula https://github.com/gabeSecula \nArtwork for *Clark the Clerk* by Barbara Chernyavsky https://www.instagram.com/obabsu/")
         default:
             msg.reply(with: "Were you trying to reach me? I didn't get that. Try *>help*")
         }
