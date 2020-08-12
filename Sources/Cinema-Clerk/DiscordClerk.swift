@@ -62,8 +62,7 @@ class DiscordClerk: CinemaClerk, Codable {
         savePicks(id: id, votingList)
     }
     
-    
-    func addMovie(msg: Message) {
+    func addMovie(msg: Message, list: movieLists) {
         var title: String = msg.content
         title = title.deletingPrefix(">addMovie ")
         var link: String = "No link provided"
@@ -72,13 +71,13 @@ class DiscordClerk: CinemaClerk, Codable {
             var strArr = title.split(separator: " ", omittingEmptySubsequences: true)
             link = String(strArr.removeLast())
             title = strArr.joined(separator: " ")
-            addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!))
+            addPick(pick: WatchPick(title: title, link: link, submitter: msg.author!.username!), list: list)
             msg.reply(with: """
                 \(msg.author!.username!) added *\(title)* to the watchlist.
                 Link: \(link)
                 """)
         } else {
-            addPick(pick: WatchPick(title: title, submitter: msg.author!.username!))
+            addPick(pick: WatchPick(title: title, submitter: msg.author!.username!), list: list)
             msg.reply(with: "\(msg.author!.username!) added *\(title)* to the watchlist.")
         }
         savePicks(id: id, votingList)

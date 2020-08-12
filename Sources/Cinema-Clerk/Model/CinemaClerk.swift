@@ -2,36 +2,35 @@ import Foundation
 
 class CinemaClerk {
     var streamingLink: String = "No streaming link"
-    var watchList: [WatchPick] = [] //try sets
-    var watchedList: [WatchPick] = []
-    var votingList: [WatchPick] = []
+    var movieLists: [String:[WatchPick]] = ["votingList": [WatchPick](), "watchList": [WatchPick](), "watchedList": [WatchPick]()]
     //var showList: [String] = []
     //var videos: [String] = []
     
     init() {
         
     }
+    
+    enum lists: String {
+        case votingList = "votingList"
+        case watchList = "watchList"
+        case watchedList = "watchedList"
+    }
        
-    func getWatchList () -> [WatchPick] {
-        return watchList
+    func getList(name: String) -> [WatchPick] {
+        return movieLists[name]!
     }
     
-    func getVotingList () -> [WatchPick] {
-        return votingList
-    }
-
-    
-     func addPick(pick: WatchPick) {
-        votingList.append(pick)
+    func addPick(pick: WatchPick, list: lists) {
+        movieLists[list].append(pick)
     }
     
-     func rollDice() -> WatchPick {
+    func rollDice(list: lists) -> WatchPick {
         /*Not sure if I like this functionality
         defer { //Makes it so voting list is deleted after a random item is picked to save memory & prep for next voting list
             votingList.removeAll(keepingCapacity: false)
         }*/
-        watchedList.append(votingList.randomElement()!)
-        return watchedList.last!
+        movieLists[lists.watchedList].append(movieLists[list].randomElement()!)
+        return movieLists[list].last!
             
     }
     
