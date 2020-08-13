@@ -9,7 +9,8 @@ class CinemaClerk {
     init() {
         
     }
-//  This is probably dumb and won't work.
+    
+//  This is probably dumb and won't work but I want to think about it.
 //    enum lists: String {
 //        case votingList = "votingList"
 //        case watchList = "watchList"
@@ -21,20 +22,19 @@ class CinemaClerk {
     }
     
     func addPick(pick: WatchPick, listName: String) {
-        movieLists[listName].append(pick)
+        movieLists[listName]!.append(pick)
     }
     
-    func rollDice(list: lists) -> WatchPick {
+    func rollDice(list: String) -> WatchPick {
         /*Not sure if I like this functionality
         defer { //Makes it so voting list is deleted after a random item is picked to save memory & prep for next voting list
             votingList.removeAll(keepingCapacity: false)
         }*/
-        movieLists["watchedList"].append(movieLists["votingList"].randomElement()!)
-        return movieLists["watchedList"].last!
-            
+        movieLists["watchedList"]!.append(movieLists[list]!.randomElement()!)
+        return movieLists["watchedList"]!.last!
     }
     
      func openVoting() {
-        movieLists["votingList"].removeAll()
+        movieLists["votingList"]!.removeAll()
     }
 }
