@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "Cinema-Clerk",
     dependencies: [
-        .package(url: "https://github.com/Azoy/Sword", from: "0.9.0")
+        .package(url: "https://github.com/Azoy/Sword", from: "0.9.0"),
+        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.12.0")
     ],
     targets: [
         .target(

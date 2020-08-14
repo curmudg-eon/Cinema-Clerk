@@ -1,5 +1,7 @@
 import Foundation
 import Sword
+
+
 //let persistentLists: [String] = load("")
 
 //func load<T: Decodable>(_ filename: String) -> T {
@@ -72,3 +74,4 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
         print("JSONSave error of \(error)")
     }
 }
+
