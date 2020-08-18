@@ -6,14 +6,18 @@ import PackageDescription
 let package = Package(
     name: "Cinema-Clerk",
     dependencies: [
-        .package(url: "https://github.com/Azoy/Sword", from: "0.9.0")
+        // Dependencies declare other packages that this package depends on.
+        // .package(url: /* package url */, from: "1.0.0"),
+        .package(name: "Sword", url: "https://github.com/Azoy/Sword", .branch("master"))
     ],
     targets: [
+        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Cinema-Clerk",
             dependencies: ["Sword"]),
-        .testTarget(
-            name: "Cinema-ClerkTests",
-            dependencies: ["Cinema-Clerk"]),
+//        .testTarget(
+//            name: "Cinema-ClerkTests",
+//            dependencies: ["Cinema-Clerk"]),
     ]
 )
