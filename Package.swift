@@ -7,12 +7,12 @@ let package = Package(
     name: "Cinema-Clerk",
     dependencies: [
         .package(url: "https://github.com/Azoy/Sword", from: "0.9.0"),
-        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.12.0")
+        .package(name: "SQLite", url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.12.0")
     ],
     targets: [
         .target(
             name: "Cinema-Clerk",
-            dependencies: ["Sword"]),
+            dependencies: ["Sword", "SQLite.swift.git"]),
         .testTarget(
             name: "Cinema-ClerkTests",
             dependencies: ["Cinema-Clerk"]),

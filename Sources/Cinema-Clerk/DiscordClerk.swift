@@ -7,6 +7,7 @@
 
 import Foundation
 import Sword
+//import SQlite.swift
 
 class DiscordClerk: CinemaClerk, Codable {
     var textChannel: UInt64 = 0
