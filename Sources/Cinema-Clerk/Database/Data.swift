@@ -1,5 +1,8 @@
 import Foundation
 import Sword
+import SQLite
+//import SQLite.swift
+
 //let persistentLists: [String] = load("")
 
 //func load<T: Decodable>(_ filename: String) -> T {
@@ -72,3 +75,6 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
         print("JSONSave error of \(error)")
     }
 }
+
+//let db = try Connection("db.sqlite3")
+
