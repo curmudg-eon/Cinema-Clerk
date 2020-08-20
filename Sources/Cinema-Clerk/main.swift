@@ -21,7 +21,7 @@ bot.on(.ready) { data in
 /// Proactively adds an entry when the bot enters a server
 bot.on(.guildCreate) { data in
     let guild = data as! Guild
-    addToClientele(id: guild.id.rawValue)
+    addToClientele(id: guild.id.rawValue) //I know it's unused leave me alone compiler
     //From here add a new Guild Category called Movie Night that includes voice channel Movie Theatre and Text Channel Movie Picks
 }
 

@@ -1,6 +1,6 @@
 import Foundation
 import Sword
-import SQLite
+//import SQLite
 //import SQLite.swift
 
 //let persistentLists: [String] = load("")
@@ -76,5 +76,5 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
     }
 }
 
-let db = try Connection("db.sqlite3")
+//let db = try Connection("db.sqlite3")
 

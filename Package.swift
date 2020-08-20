@@ -6,20 +6,18 @@ import PackageDescription
 let package = Package(
     name: "Cinema-Clerk",
     dependencies: [
-        .package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.12.0"),
-        .package(url: "https://github.com/Azoy/Sword", .branch("master")),
+        .package(url: "https://github.com/Azoy/Sword", from: "0.9.2"),
+        .package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.12.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Cinema-Clerk",
             dependencies: [
-            "Sword",
-            .product(name: "SQLite", package: "SQLite.swift")
+                "Sword",
+                .product(name: "SQLite", package: "SQLite.swift")
         ]),
-//        .testTarget(
-//            name: "Cinema-ClerkTests",
-//            dependencies: ["Cinema-Clerk"]),
+        .testTarget(
+            name: "Cinema-ClerkTests",
+            dependencies: ["Cinema-Clerk"]),
     ]
 )
