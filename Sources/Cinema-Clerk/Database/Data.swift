@@ -1,7 +1,7 @@
 import Foundation
 import Sword
-//import SQLite
-//import SQLite.swift
+import SQLite
+import SQLite3
 
 //let persistentLists: [String] = load("")
 
@@ -76,5 +76,8 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
     }
 }
 
-//let db = try Connection("db.sqlite3")
+let db = try Connection("./db.sqlite3")
 
+// I gotta draw out how I'm going to do this.
+//Right now I have a dictionary of type UInt64:DiscordClerk which references servers by their Snowflake rawvalue
+//Each object owns a dictionary of type String:[MoviePick] that holds it's lists for 
