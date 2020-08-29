@@ -76,8 +76,10 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
     }
 }
 
-let db = try Connection("./db.sqlite3")
+//let db = try Connection("./db.sqlite3")
 
+//https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#swift-package-manager 
 // I gotta draw out how I'm going to do this.
 //Right now I have a dictionary of type UInt64:DiscordClerk which references servers by their Snowflake rawvalue
-//Each object owns a dictionary of type String:[MoviePick] that holds it's lists for 
+//Each object owns a dictionary of type String:[MoviePick] that holds it's lists
+//Each movie pick contains data
