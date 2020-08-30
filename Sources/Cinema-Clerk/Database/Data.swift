@@ -1,12 +1,8 @@
 import Foundation
 import Sword
-<<<<<<< HEAD
-//import SQLite
-//import SQLite.swift
-=======
+
 import SQLite
 import SQLite3
->>>>>>> database
 
 //let persistentLists: [String] = load("")
 
@@ -81,11 +77,9 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
     }
 }
 
-<<<<<<< HEAD
-//let db = try Connection("db.sqlite3")
-=======
+
 //let db = try Connection("./db.sqlite3")
->>>>>>> database
+
 
 //https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#swift-package-manager 
 // I gotta draw out how I'm going to do this.
