@@ -77,8 +77,28 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
     }
 }
 
+//func buildDatabase() -> Connection {
+//    let db = try Connection("./db.sqlite3")
+//    let
+//
+//
+//    return db
+//}
 
-//let db = try Connection("./db.sqlite3")
+func createDB() throws -> Connection {
+    let db = try Connection("./db.sqlite3")
+    let clerks = Table("clerks"), movieLists = Table("movieLists"), watchPicks = Table("watchPicks")
+    let id = Expression<Int64>("id"), key = Expression<UInt64>("key"), ownerID = Expression<UInt64>("ownerID"), listName = Expression<String>("listName"), pickName = Expression<String>("pickName"), pickLink = Expression<String>("pickLink"), pickSubmitter = Expression<String>("pickSubmitter")
+    
+    try db.run(clerks.create(ifNotExists: true) { t in
+        t.column(id, primaryKey: true)
+    })
+//    db.run(movieLists.create(ifNotExists: true) { t in
+//
+//    })
+    
+    return db
+}
 
 
 //https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#swift-package-manager 

@@ -99,7 +99,7 @@ class DiscordClerk: CinemaClerk, Codable {
         
     }
     
-    func setStreamingLink (link: String) -> Bool { //Returns based on success or failure.
+    func setStreamingLink (link: String) -> Bool { ///Returns based on success or failure.
         if !link.isEmpty && link.contains("https://") || link.contains("www.") {
             streamingLink = link.deletingPrefix(">setStreamingLink ")
             return true
