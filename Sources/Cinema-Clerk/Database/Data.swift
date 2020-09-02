@@ -88,14 +88,24 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
 func createDB() throws -> Connection {
     let db = try Connection("./db.sqlite3")
     let clerks = Table("clerks"), movieLists = Table("movieLists"), watchPicks = Table("watchPicks")
-    let id = Expression<Int64>("id"), key = Expression<UInt64>("key"), ownerID = Expression<UInt64>("ownerID"), listName = Expression<String>("listName"), pickName = Expression<String>("pickName"), pickLink = Expression<String>("pickLink"), pickSubmitter = Expression<String>("pickSubmitter")
+    let id = Expression<String>("id"), key = Expression<Int>("key"), ownerID = Expression<String>("ownerID"), listName = Expression<String>("listName"), pickName = Expression<String>("pickName"), pickLink = Expression<String>("pickLink"), pickSubmitter = Expression<String>("pickSubmitter")
     
     try db.run(clerks.create(ifNotExists: true) { t in
         t.column(id, primaryKey: true)
     })
-//    db.run(movieLists.create(ifNotExists: true) { t in
-//
-//    })
+    try db.run(movieLists.create(ifNotExists: true) { t in
+        t.column(key, primaryKey: .autoincrement) // just scale them so they have primary keys
+        t.column(ownerID)
+        t.column(listName)
+    })
+    try db.run(watchPicks.create(ifNotExists: true) { t in
+        t.column(key, primaryKey: .autoincrement)
+        t.column(ownerID)
+        t.column(pickName)
+        t.column(pickLink)
+        t.column(pickName)
+    })
+    
     
     return db
 }
