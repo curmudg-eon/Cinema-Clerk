@@ -26,10 +26,6 @@ class CinemaClerk {
     }
     
     func rollDice(list: String) -> WatchPick {
-        /*Not sure if I like this functionality
-        defer { //Makes it so voting list is deleted after a random item is picked to save memory & prep for next voting list
-            votingList.removeAll(keepingCapacity: false)
-        }*/
         movieLists["watchedList"]!.append(movieLists[list]!.randomElement()!)
         return movieLists["watchedList"]!.last!
     }

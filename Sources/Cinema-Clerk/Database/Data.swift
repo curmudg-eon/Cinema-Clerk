@@ -85,29 +85,68 @@ func savePicks(id: UInt64, _ object: [WatchPick]) {
 //    return db
 //}
 
-func createDB() throws -> Connection {
-    let db = try Connection("./db.sqlite3")
+//func createDB() throws -> Connection {
+//    let db = try Connection("./db.sqlite3")
+//    let clerks = Table("clerks"), movieLists = Table("movieLists"), watchPicks = Table("watchPicks")
+//    let id = Expression<String>("id"), key = Expression<Int>("key"), ownerID = Expression<String>("ownerID"), listName = Expression<String>("listName"), pickName = Expression<String>("pickName"), pickLink = Expression<String>("pickLink"), pickSubmitter = Expression<String>("pickSubmitter")
+//
+//    try db.run(clerks.create(ifNotExists: true) { t in
+//        t.column(id, primaryKey: true)
+//    })
+//    try db.run(movieLists.create(ifNotExists: true) { t in
+//        t.column(key, primaryKey: .autoincrement) // just scale them so they have primary keys to reference them 3NF baybe
+//        t.column(ownerID)
+//        t.column(listName)
+//    })
+//    try db.run(watchPicks.create(ifNotExists: true) { t in
+//        t.column(key, primaryKey: .autoincrement)
+//        t.column(ownerID)
+//        t.column(pickName)
+//        t.column(pickLink)
+//        t.column(pickName)
+//    })
+//
+//
+//    return db
+//}
+//func addListToDB(name: String, owner: UInt64) throws -> Int {
+//    let rowid = try db.run(movieLists.insert(listName <- name, ownerID <- owner))
+//    return 0
+//}
+
+//*************************** MUST MAKE PROPER CATCHES BEFORE DEPLOYMENT *****************************************
+class Database {
+    let db: Connection
     let clerks = Table("clerks"), movieLists = Table("movieLists"), watchPicks = Table("watchPicks")
     let id = Expression<String>("id"), key = Expression<Int>("key"), ownerID = Expression<String>("ownerID"), listName = Expression<String>("listName"), pickName = Expression<String>("pickName"), pickLink = Expression<String>("pickLink"), pickSubmitter = Expression<String>("pickSubmitter")
     
-    try db.run(clerks.create(ifNotExists: true) { t in
-        t.column(id, primaryKey: true)
-    })
-    try db.run(movieLists.create(ifNotExists: true) { t in
-        t.column(key, primaryKey: .autoincrement) // just scale them so they have primary keys
-        t.column(ownerID)
-        t.column(listName)
-    })
-    try db.run(watchPicks.create(ifNotExists: true) { t in
-        t.column(key, primaryKey: .autoincrement)
-        t.column(ownerID)
-        t.column(pickName)
-        t.column(pickLink)
-        t.column(pickName)
-    })
+    init() {
+        db = try! Connection("./db.sqlite3")
+            
+        try! db.run(clerks.create(ifNotExists: true) { t in
+            t.column(id, primaryKey: true)
+        })
+        try! db.run(movieLists.create(ifNotExists: true) { t in
+            t.column(key, primaryKey: .autoincrement) // just scale them so they have primary keys to reference them 3NF baybe
+            t.column(ownerID)
+            t.column(listName)
+        })
+        try! db.run(watchPicks.create(ifNotExists: true) { t in
+            t.column(key, primaryKey: .autoincrement)
+            t.column(ownerID)
+            t.column(pickName)
+            t.column(pickLink)
+            t.column(pickName)
+        })
+    }
+    ///Adds a movieList to the database and then returns the primary key of the database
+    func addListToDB(name: String, owner: UInt64) throws -> Int {
+        let row = try! db.run(movieLists.insert(listName <- name, ownerID <- String(owner)))
+        let rowKey: Int = try! db.prepare(movieLists.select(key).filter(rowid == row))
+        return 0
+    }
+
     
-    
-    return db
 }
 
 
