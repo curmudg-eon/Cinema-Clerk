@@ -139,11 +139,11 @@ class Database {
             t.column(pickName)
         })
     }
-    ///Adds a movieList to the database and then returns the primary key of the database
+    ///Adds a movieList to the database and then returns the primary key of the row entry
     func addListToDB(name: String, owner: UInt64) throws -> Int {
-        let row = try! db.run(movieLists.insert(listName <- name, ownerID <- String(owner)))
-        let rowKey: Int = try! db.prepare(movieLists.select(key).filter(rowid == row))
-        return 0
+        try! db.run(movieLists.insert(listName <- name, ownerID <- String(owner)))
+        let rowKey:Int = try! db.scalar(movieLists.count)
+        return rowKey
     }
 
     
