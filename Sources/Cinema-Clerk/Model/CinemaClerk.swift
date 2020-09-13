@@ -2,7 +2,7 @@ import Foundation
 
 class CinemaClerk {
     var streamingLink: String = "No streaming link"
-    var movieLists: [String:[WatchPick]] = ["votingList": [WatchPick](), "watchList": [WatchPick](), "watchedList": [WatchPick]()]
+    var movieLists: [String:[WatchPick]] = ["votingList": [WatchPick](), "watchedList": [WatchPick]()]
     //var showList: [String] = []
     //var videos: [String] = []
     

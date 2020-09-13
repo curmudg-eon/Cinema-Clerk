@@ -6,6 +6,7 @@ struct WatchPick: Codable {
     var title: String
     var link: String
     var submitter: String
+    var dbPK: Int = -1
     var uniqueVoters: [String] = [] //For later if I want to add the ability to bump votes
     
     /*func addVote(user: User) -> Bool {
@@ -26,6 +27,14 @@ struct WatchPick: Codable {
         self.title = title
         self.link = link
         self.submitter = submitter
+        uniqueVoters.append(submitter)
+    }
+    
+    init(title: String = "No Title Provided", link: String = "", submitter: String = "Unknown User", databasePK: Int) {
+        self.title = title
+        self.link = link
+        self.submitter = submitter
+        self.dbPK = databasePK
         uniqueVoters.append(submitter)
     }
     

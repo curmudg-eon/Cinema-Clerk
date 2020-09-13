@@ -9,8 +9,9 @@ import Sword
 // https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing - bot is currently only available to add by author
 
 
-let bot = Sword(token: Token) //Replace Token with your bot's token string 
-var manager: [UInt64:DiscordClerk] =  loadFromJSON() ?? [:] /// Load if there's data, create an empty Dictionary otherwise.
+let bot = Sword(token: Token) //Replace Token with your bot's token string
+let db = Database()
+var manager: [UInt64:DiscordClerk] =  try! db.getClerkList() /// Loads if there are entries in db, creates an empty Dictionary otherwise.
 for clerk in manager {
     clerk.value.loadWatchPicks()
 }
