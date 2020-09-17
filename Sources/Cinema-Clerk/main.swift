@@ -13,7 +13,7 @@ let bot = Sword(token: Token) //Replace Token with your bot's token string
 let db = Database()
 var manager: [UInt64:DiscordClerk] =  try! db.getClerkList() /// Loads if there are entries in db, creates an empty Dictionary otherwise.
 for clerk in manager {
-    clerk.value.loadWatchPicks()
+    clerk.value.movieLists = try! db.getAllMovieLists(forClerk: clerk.key)
 }
 bot.on(.ready) { data in
     bot.editStatus(to: "online", watching: ">help")
@@ -53,7 +53,7 @@ bot.on(.messageCreate) { data in
 
 func addToClientele(id: UInt64) -> DiscordClerk {
     manager[id] = DiscordClerk(snowflakeID: id)
-    saveToJSON(manager) /// Only save when a new manager is added
+    try! db.addClerkToDB(snowflakeID: id)/// Only save when a new manager is added
     return manager[id]!
 }
 

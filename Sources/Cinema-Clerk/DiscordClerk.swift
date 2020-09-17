@@ -13,7 +13,7 @@ class DiscordClerk: CinemaClerk, Codable {
     var textChannel: UInt64 = 0
     let id: UInt64
     
-    let helpMessage = """
+    var helpMessage = """
     ```
     Absolutely! By default, I have a short term VotingList for picking movies in the moment and a long term WatchList for accruing choices for later. I'll also keep track of the Movies you tell me you've watched already. Here are your options for commands: \n
     *>openVoting* : Clears the previous votinglist and allows users to start adding movies. \n
@@ -30,6 +30,7 @@ class DiscordClerk: CinemaClerk, Codable {
         id = snowflakeID
     }
     
+    ///Deprecated - Do not use 
     func loadWatchPicks() {
         movieLists["votingList"] = loadPicks(id: id) ?? []
     }

@@ -22,7 +22,7 @@ class CinemaClerk {
     }
     
     func addPick(pick: WatchPick, listName: String) {
-        movieLists[listName]!.append(pick)
+        movieLists[listName]?.append(pick)
     }
     
     func rollDice(list: String) -> WatchPick {
