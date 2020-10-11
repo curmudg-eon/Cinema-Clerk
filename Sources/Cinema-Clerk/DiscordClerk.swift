@@ -1,6 +1,9 @@
 //
 //  DiscordClerk.swift
-//  
+//
+//  This class acts as a clerk that handles all the requests for a set of users. In the context of discord,
+//  that can mean a server, a group chat, or a single user in a direct message with the bot. 
+//
 //
 //  Created by Gabe Secula on 7/11/20.
 //
@@ -29,11 +32,6 @@ class DiscordClerk: CinemaClerk, Codable {
     ///Creates a new instance of DiscordClerk with the given id value.
     init(snowflakeID: UInt64) {
         id = snowflakeID
-    }
-    
-    ///Deprecated - Do not use 
-    func loadWatchPicks() {
-        movieLists["votingList"] = []
     }
     
     ///Sets the given Discord text channel as the channel to be used for interactions with the bot.
