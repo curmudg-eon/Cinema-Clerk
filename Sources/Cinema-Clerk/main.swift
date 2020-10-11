@@ -11,7 +11,7 @@ import Sword
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string
 let db = Database()
-var manager: [UInt64:DiscordClerk] =  try! db.getClerkList() /// Loads if there are entries in db, creates an empty Dictionary otherwise.
+var manager: [UInt64:DiscordClerk] =  try! db.getClerkList()! /// Loads if there are entries in db, creates an empty Dictionary otherwise.
 for clerk in manager {
     clerk.value.movieLists = try! db.getAllMovieLists(forClerk: clerk.key)
 }
@@ -30,7 +30,7 @@ bot.on(.guildCreate) { data in
 bot.on(.guildDelete) { data in
     let guild = data as! Guild
     manager.removeValue(forKey: guild.id.rawValue)
-    saveToJSON(manager)
+//    saveToJSON(manager)
 }
 
 //bot.on(.guildMemberAdd) - I have the power to annoy people to no end and plug my own bot with this. "You and me Spidaman, we could rule this city Spidaman!" -Videogamedunkey
@@ -53,7 +53,7 @@ bot.on(.messageCreate) { data in
 
 func addToClientele(id: UInt64) -> DiscordClerk {
     manager[id] = DiscordClerk(snowflakeID: id)
-    try! db.addClerkToDB(snowflakeID: id)/// Only save when a new manager is added
+    try! db.addClerkToDB(snowflakeID: id)
     return manager[id]!
 }
 

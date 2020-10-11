@@ -7,13 +7,13 @@
 
 import Foundation
 import Sword
-//import SQlite.swift
 
 class DiscordClerk: CinemaClerk, Codable {
     var textChannel: UInt64 = 0
     let id: UInt64
     
-    var helpMessage = """
+    ///
+    var helpMessage: String = """
     ```
     Absolutely! By default, I have a short term VotingList for picking movies in the moment and a long term WatchList for accruing choices for later. I'll also keep track of the Movies you tell me you've watched already. Here are your options for commands: \n
     *>openVoting* : Clears the previous votinglist and allows users to start adding movies. \n
@@ -26,19 +26,22 @@ class DiscordClerk: CinemaClerk, Codable {
     ```
     """
     
+    ///Creates a new instance of DiscordClerk with the given id value.
     init(snowflakeID: UInt64) {
         id = snowflakeID
     }
     
     ///Deprecated - Do not use 
     func loadWatchPicks() {
-        movieLists["votingList"] = loadPicks(id: id) ?? []
+        movieLists["votingList"] = []
     }
     
+    ///Sets the given Discord text channel as the channel to be used for interactions with the bot.
     func setTextChannel (textChl: GuildText) {
         textChannel = textChl.id.rawValue
     }
     
+    ///Parses and responds to a Discord Message
     func handleMessage (msg: Message) {
         let prefix = String(msg.content.lowercased().split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true).first!).deletingPrefix(">")
         switch prefix {
@@ -69,6 +72,7 @@ class DiscordClerk: CinemaClerk, Codable {
         }
     }
     
+    ///
     func addMovie(msg: Message, list: String) {
         var title: String = msg.content
         title = title.deletingPrefix(">addVote ")
@@ -88,7 +92,7 @@ class DiscordClerk: CinemaClerk, Codable {
             addPick(pick: WatchPick(title: title, submitter: msg.author!.username!), listName: list)
             msg.reply(with: "\(msg.author!.username!) added *\(title)* to the watchlist.")
         }
-        savePicks(id: id, movieLists["votingList"]!)
+//        savePicks(id: id, movieLists["votingList"]!)
     }
     
     func dice(msg: Message, listName: String) {
@@ -112,7 +116,7 @@ class DiscordClerk: CinemaClerk, Codable {
     func openVoting(msg: Message) {
         movieLists["votingList"]!.removeAll()
         msg.reply(with: "A new voting list has been opened to submit Movie Picks in!")
-        savePicks(id: id, movieLists["votingList"]!)
+//        savePicks(id: id, movieLists["votingList"]!)
     }
     
     func displayList (list: String) -> String {
