@@ -46,6 +46,7 @@ class Database {
         return Int(try! db.scalar(watchPicks.select(key).where(rowid == db.run(watchPicks.insert(ownerID <- String(owner), pickName <- name, pickLink <- link, pickSubmitter <- submitter))).order(key.desc).limit(1)))
     }
     
+    //Add later
     //    func getClerk(snowflakeID: UInt64) -> DiscordClerk {
     //
     //    }
@@ -63,7 +64,7 @@ class Database {
         return list
     }
     
-    func getAllMovieLists(forClerk clerkID: UInt64) throws ->[String:[WatchPick]] {
+    func getAllMovieLists(forClerk clerkID: UInt64) throws -> [String:[WatchPick]] {
         var returnList: [String:[WatchPick]] = [:]
         do {
             for list in try db.prepare(movieLists.select(listName).where(ownerID == String(clerkID)))  {
@@ -75,6 +76,8 @@ class Database {
         return returnList
     }
     
+    //I'm not sure what I was doing with this
+    ///Do not use.
     func getMovieList(forList listID: UInt64) throws -> [WatchPick]? {
         var returnList: [WatchPick] = [WatchPick]()
         do {
@@ -107,10 +110,3 @@ class Database {
     }
     
 }
-
-
-//https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#swift-package-manager 
-// I gotta draw out how I'm going to do this.
-//Right now I have a dictionary of type UInt64:DiscordClerk which references servers by their Snowflake rawvalue
-//Each object owns a dictionary of type String:[MoviePick] that holds it's lists
-//Each movie pick contains data
