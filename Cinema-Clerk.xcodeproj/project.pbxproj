@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02EAD7C12534DD4E004E0617 /* databaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EAD7C02534DD4E004E0617 /* databaseTests.swift */; };
 		OBJ_121 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Data.swift */; };
 		OBJ_122 /* DiscordClerk.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* DiscordClerk.swift */; };
 		OBJ_123 /* CinemaClerk.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* CinemaClerk.swift */; };
@@ -144,9 +143,6 @@
 
 /* Begin PBXFileReference section */
 		02EAD7BE2534DD4E004E0617 /* databaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = databaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		02EAD7C02534DD4E004E0617 /* databaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = databaseTests.swift; sourceTree = "<group>"; };
-		02EAD7C22534DD4E004E0617 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		02EAD7D02534DF14004E0617 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = TestPlan.xctestplan; path = databaseTests/TestPlan.xctestplan; sourceTree = "<group>"; };
 		"Cinema-Clerk::Cinema-Clerk::Product" /* Cinema-Clerk */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Cinema-Clerk"; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
@@ -289,15 +285,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		02EAD7BF2534DD4E004E0617 /* databaseTests */ = {
-			isa = PBXGroup;
-			children = (
-				02EAD7C02534DD4E004E0617 /* databaseTests.swift */,
-				02EAD7C22534DD4E004E0617 /* Info.plist */,
-			);
-			path = databaseTests;
-			sourceTree = "<group>";
-		};
 		OBJ_103 /* Starscream 3.0.5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,20 +418,17 @@
 			path = include;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				02EAD7D02534DF14004E0617 /* TestPlan.xctestplan */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_18 /* Tests */,
 				OBJ_19 /* Dependencies */,
-				02EAD7BF2534DD4E004E0617 /* databaseTests */,
 				OBJ_108 /* Products */,
 				OBJ_114 /* SQLite.swift */,
 				OBJ_115 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_52 /* Sword */ = {
@@ -775,7 +759,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_108 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -809,7 +793,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02EAD7C12534DD4E004E0617 /* databaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
