@@ -118,7 +118,7 @@ class DiscordClerk: CinemaClerk, Codable {
     }
     
     func displayList (list: String) -> String {
-        if(movieLists[list]!.isEmpty) {
+        if(movieLists[list] == nil || movieLists[list]!.isEmpty) { ///This line prevents a crash if list parameter is empty or does not exist
             return "Are you monkeying around? There's nothing in the watchlist!"
         }
         var printText: String = ""
@@ -132,9 +132,9 @@ class DiscordClerk: CinemaClerk, Codable {
     
     /*Features for later
     func bump (title: String) {
-    upvote a pick on
+    upvote a pick in a list
     }
-    func showEntries () {
+    func showEntries (user: UInt64) {
     show all entries a person has made
     }
     */

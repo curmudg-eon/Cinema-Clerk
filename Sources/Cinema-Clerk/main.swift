@@ -11,7 +11,7 @@ import Sword
 
 let bot = Sword(token: Token) //Replace Token with your bot's token string
 let db = Database()
-var manager: [UInt64:DiscordClerk] =  try! db.getClerkList()! /// Loads if there are entries in db, creates an empty Dictionary otherwise.
+var manager: [UInt64:DiscordClerk] =  try! db.getClerkList() ?? [:] /// Loads if there are entries in db, creates an empty Dictionary otherwise.
 for clerk in manager {
     clerk.value.movieLists = try! db.getAllMovieLists(forClerk: clerk.key)
 }
@@ -30,16 +30,15 @@ bot.on(.guildCreate) { data in
 bot.on(.guildDelete) { data in
     let guild = data as! Guild
     manager.removeValue(forKey: guild.id.rawValue)
-//    saveToJSON(manager)
 }
 
-//bot.on(.guildMemberAdd) - I have the power to annoy people to no end and plug my own bot with this. "You and me Spidaman, we could rule this city Spidaman!" -Videogamedunkey
+//bot.on(.guildMemberAdd) - I have the power to annoy people to no end and plug my own product more often than a late night tv infomercial with this. I hold the power of the universe in my palm.
 
 /// This sorts all messages that the bot receives and passes them along to the proper DiscordClerk instance.
 bot.on(.messageCreate) { data in
     let msg = data as! Message
     if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
-        (manager[msg.idOfLocation()] ?? addToClientele(id: msg.idOfLocation())).handleMessage(msg: msg)
+        (manager[msg.idOfLocation()] ?? addToClientele(id: msg.idOfLocation())).handleMessage(msg: msg) ///If clerk  exists -> handle the message. If clerk does not exist -> create clerk and handles message
     } else if msg.content.hasPrefix(")") {
         msg.reply(with: "# of clerks: \(manager.count)")
         for clerk in manager {
@@ -58,6 +57,3 @@ func addToClientele(id: UInt64) -> DiscordClerk {
 }
 
 bot.connect()
-
-//Fatal error: Unexpectedly found nil while unwrapping an Optional value: file /Users/gabesecula/Documents/Code/Cinema-Clerk/.build/checkouts/Sword/Sources/Sword/Gateway/GatewayHandler.swift, line 46
-//Illegal instruction: 4
