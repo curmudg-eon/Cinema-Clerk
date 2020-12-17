@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		OBJ_121 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Data.swift */; };
+		0285FFDA25746099002252A5 /* DatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0285FEF0257453DB002252A5 /* DatabaseTests.swift */; };
+		OBJ_121 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* Database.swift */; };
 		OBJ_122 /* DiscordClerk.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* DiscordClerk.swift */; };
-		OBJ_123 /* CinemaClerk.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* CinemaClerk.swift */; };
 		OBJ_124 /* WatchPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* WatchPick.swift */; };
 		OBJ_125 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* extensions.swift */; };
 		OBJ_126 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* main.swift */; };
@@ -142,9 +142,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02EAD7BE2534DD4E004E0617 /* databaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = databaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0285FEE025745373002252A5 /* Cinema-Clerk-Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Cinema-Clerk-Tests.xctestplan"; sourceTree = "<group>"; };
+		0285FEEE257453DB002252A5 /* DatabaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatabaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0285FEF0257453DB002252A5 /* DatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTests.swift; sourceTree = "<group>"; };
+		0285FEF2257453DB002252A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		"Cinema-Clerk::Cinema-Clerk::Product" /* Cinema-Clerk */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Cinema-Clerk"; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_10 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		OBJ_10 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		OBJ_101 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		OBJ_102 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/gabesecula/Documents/Code/Cinema-Clerk/.build/checkouts/Sword/Package.swift"; sourceTree = "<group>"; };
@@ -155,7 +158,6 @@
 		OBJ_11 /* DiscordClerk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscordClerk.swift; sourceTree = "<group>"; };
 		OBJ_114 /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SQLite.swift; sourceTree = SOURCE_ROOT; };
 		OBJ_115 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		OBJ_13 /* CinemaClerk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaClerk.swift; sourceTree = "<group>"; };
 		OBJ_14 /* WatchPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPick.swift; sourceTree = "<group>"; };
 		OBJ_15 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		OBJ_16 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -234,7 +236,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		02EAD7BB2534DD4E004E0617 /* Frameworks */ = {
+		0285FEEB257453DB002252A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,6 +287,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0285FEEF257453DB002252A5 /* DatabaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				0285FEE025745373002252A5 /* Cinema-Clerk-Tests.xctestplan */,
+				0285FEF0257453DB002252A5 /* DatabaseTests.swift */,
+				0285FEF2257453DB002252A5 /* Info.plist */,
+			);
+			path = DatabaseTests;
+			sourceTree = "<group>";
+		};
 		OBJ_103 /* Starscream 3.0.5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,26 +317,10 @@
 				"SQLite.swift::SQLiteObjc::Product" /* SQLiteObjc.framework */,
 				"Starscream::Starscream::Product" /* Starscream.framework */,
 				"SQLite.swift::SQLite::Product" /* SQLite.framework */,
-				02EAD7BE2534DD4E004E0617 /* databaseTests.xctest */,
+				0285FEEE257453DB002252A5 /* DatabaseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		OBJ_12 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_13 /* CinemaClerk.swift */,
-				OBJ_14 /* WatchPick.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		OBJ_18 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Tests;
-			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_19 /* Dependencies */ = {
 			isa = PBXGroup;
@@ -423,8 +419,8 @@
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_18 /* Tests */,
 				OBJ_19 /* Dependencies */,
+				0285FEEF257453DB002252A5 /* DatabaseTests */,
 				OBJ_108 /* Products */,
 				OBJ_114 /* SQLite.swift */,
 				OBJ_115 /* README.md */,
@@ -527,24 +523,16 @@
 		OBJ_8 /* Cinema-Clerk */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_9 /* Database */,
+				OBJ_10 /* Database.swift */,
 				OBJ_11 /* DiscordClerk.swift */,
-				OBJ_12 /* Model */,
 				OBJ_15 /* extensions.swift */,
 				OBJ_16 /* main.swift */,
 				OBJ_17 /* token.swift */,
+				OBJ_14 /* WatchPick.swift */,
 			);
 			name = "Cinema-Clerk";
 			path = "Sources/Cinema-Clerk";
 			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_9 /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_10 /* Data.swift */,
-			);
-			path = Database;
-			sourceTree = "<group>";
 		};
 		OBJ_93 /* Utils */ = {
 			isa = PBXGroup;
@@ -575,21 +563,21 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		02EAD7BD2534DD4E004E0617 /* databaseTests */ = {
+		0285FEED257453DB002252A5 /* DatabaseTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 02EAD7C52534DD4E004E0617 /* Build configuration list for PBXNativeTarget "databaseTests" */;
+			buildConfigurationList = 0285FEF3257453DB002252A5 /* Build configuration list for PBXNativeTarget "DatabaseTests" */;
 			buildPhases = (
-				02EAD7BA2534DD4E004E0617 /* Sources */,
-				02EAD7BB2534DD4E004E0617 /* Frameworks */,
-				02EAD7BC2534DD4E004E0617 /* Resources */,
+				0285FEEA257453DB002252A5 /* Sources */,
+				0285FEEB257453DB002252A5 /* Frameworks */,
+				0285FEEC257453DB002252A5 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = databaseTests;
-			productName = databaseTests;
-			productReference = 02EAD7BE2534DD4E004E0617 /* databaseTests.xctest */;
+			name = DatabaseTests;
+			productName = DatabaseTests;
+			productReference = 0285FEEE257453DB002252A5 /* DatabaseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		"Cinema-Clerk::Cinema-Clerk" /* Cinema-Clerk */ = {
@@ -742,11 +730,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 9999;
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 9999;
 				TargetAttributes = {
-					02EAD7BD2534DD4E004E0617 = {
-						CreatedOnToolsVersion = 12.0.1;
+					0285FEED257453DB002252A5 = {
+						CreatedOnToolsVersion = 12.2;
 						DevelopmentTeam = Q9982A722Y;
 						ProvisioningStyle = Automatic;
 					};
@@ -773,13 +761,13 @@
 				"Starscream::SwiftPMPackageDescription" /* StarscreamPackageDescription */,
 				"Sword::Sword" /* Sword */,
 				"Sword::SwiftPMPackageDescription" /* SwordPackageDescription */,
-				02EAD7BD2534DD4E004E0617 /* databaseTests */,
+				0285FEED257453DB002252A5 /* DatabaseTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		02EAD7BC2534DD4E004E0617 /* Resources */ = {
+		0285FEEC257453DB002252A5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -789,10 +777,11 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		02EAD7BA2534DD4E004E0617 /* Sources */ = {
+		0285FEEA257453DB002252A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0285FFDA25746099002252A5 /* DatabaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,9 +789,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_121 /* Data.swift in Sources */,
+				OBJ_121 /* Database.swift in Sources */,
 				OBJ_122 /* DiscordClerk.swift in Sources */,
-				OBJ_123 /* CinemaClerk.swift in Sources */,
 				OBJ_124 /* WatchPick.swift in Sources */,
 				OBJ_125 /* extensions.swift in Sources */,
 				OBJ_126 /* main.swift in Sources */,
@@ -975,7 +963,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		02EAD7C32534DD4E004E0617 /* Debug */ = {
+		0285FEF4257453DB002252A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1025,19 +1013,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = databaseTests/Info.plist;
+				INFOPLIST_FILE = DatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = Secula.databaseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = Secula.DatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		02EAD7C42534DD4E004E0617 /* Release */ = {
+		0285FEF5257453DB002252A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1073,8 +1061,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = Q9982A722Y;
-				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1083,12 +1072,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = databaseTests/Info.plist;
+				INFOPLIST_FILE = DatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = Secula.databaseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = Secula.DatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1502,11 +1491,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		02EAD7C52534DD4E004E0617 /* Build configuration list for PBXNativeTarget "databaseTests" */ = {
+		0285FEF3257453DB002252A5 /* Build configuration list for PBXNativeTarget "DatabaseTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				02EAD7C32534DD4E004E0617 /* Debug */,
-				02EAD7C42534DD4E004E0617 /* Release */,
+				0285FEF4257453DB002252A5 /* Debug */,
+				0285FEF5257453DB002252A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
