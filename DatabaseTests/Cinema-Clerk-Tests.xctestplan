@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "6559D3CD-64D7-4FCC-AD93-85F47E230C40",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Cinema-Clerk.xcodeproj",
+      "identifier" : "Cinema-Clerk::Cinema-Clerk",
+      "name" : "Cinema-Clerk"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Cinema-Clerk.xcodeproj",
+        "identifier" : "0285FEED257453DB002252A5",
+        "name" : "DatabaseTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -16,9 +16,12 @@ let package = Package(
                 "Sword",
                 .product(name: "SQLite", package: "SQLite.swift"),
         ]),
-//                .testTarget(
-//                    name: "Cinema-ClerkTests",
-//                    dependencies: ["Cinema-Clerk"]),
-                
+        .target(
+            name: "Cinema-Clerk-Tests",
+            dependencies: [
+                "Cinema-Clerk",
+                "Sword",
+                .product(name: "SQLite", package: "SQLite.swift"),
+        ]),
     ]
 )

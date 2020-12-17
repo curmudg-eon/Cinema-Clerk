@@ -1,20 +1,18 @@
 import Sword
 
 /*
+ Gabe Secula
  Main.swift is a bot that interfaces with Discord services using the Sword library.
- The purpose of this bot is just to manage a group of friends' movie picks and watchlists.
- The backend code used to manage the actual picks and data is separated in order to allow for later development into a full stack Apple ecosystem app.
+ The purpose of this bot is to manage a group of friends' movie picks and watchlists.
  */
 
-// https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing - bot is currently only available to add by author
+// https://discord.com/api/oauth2/authorize?client_id=700835705647136828&permissions=804384528&scope=bot for re-adding bot in testing - bot is currently only available to add by author as it is not hosted on a server.
 
 
-let bot = Sword(token: Token) //Replace Token with your bot's token string
+let bot = Sword(token: Token) ///Replace Token with your bot's token string
 let db = Database()
-var manager: [UInt64:DiscordClerk] =  try! db.getClerkList() ?? [:] /// Loads if there are entries in db, creates an empty Dictionary otherwise.
-for clerk in manager {
-    clerk.value.movieLists = try! db.getAllMovieLists(forClerk: clerk.key)
-}
+var manager: [UInt64:DiscordClerk] = try db.getClerkList() //Pulls list from Database or an empty list if the list is empty.
+//manager.
 bot.on(.ready) { data in
     bot.editStatus(to: "online", watching: ">help")
 }
@@ -32,17 +30,22 @@ bot.on(.guildDelete) { data in
     manager.removeValue(forKey: guild.id.rawValue)
 }
 
-//bot.on(.guildMemberAdd) - I have the power to annoy people to no end and plug my own product more often than a late night tv infomercial with this. I hold the power of the universe in my palm.
+//bot.on(.guildMemberAdd) - I have the power to annoy people to no end and plug my own product more often than a late night tv infomercial with this.
 
 /// This sorts all messages that the bot receives and passes them along to the proper DiscordClerk instance.
 bot.on(.messageCreate) { data in
     let msg = data as! Message
     if msg.content.hasPrefix(">")  {   /// Check for prefix before running rest of conditionals
-        (manager[msg.idOfLocation()] ?? addToClientele(id: msg.idOfLocation())).handleMessage(msg: msg) ///If clerk  exists -> handle the message. If clerk does not exist -> create clerk and handles message
-    } else if msg.content.hasPrefix(")") {
+        if manager.keys.contains(msg.idOfLocation()) {
+            manager[msg.idOfLocation()]?.handleMessage(msg: msg)
+        } else {
+            addToClientele(id: msg.idOfLocation()) ///If clerk  exists -> handle the message. If clerk does not exist -> create clerk and handles message
+            manager[msg.idOfLocation()]?.handleMessage(msg: msg)
+        }
+    } else if msg.content.hasPrefix(")") { //This is just scaffolding for testing state right now.
         msg.reply(with: "# of clerks: \(manager.count)")
         for clerk in manager {
-            msg.reply(with: "Key: \(clerk.key)")
+            msg.reply(with: "Key: \(clerk)")
         }
     }
 }
@@ -50,10 +53,12 @@ bot.on(.messageCreate) { data in
 
 ///Helper Functions Follow
 
-func addToClientele(id: UInt64) -> DiscordClerk {
-    manager[id] = DiscordClerk(snowflakeID: id)
-    try! db.addClerkToDB(snowflakeID: id)
-    return manager[id]!
+func addToClientele(id: UInt64) {
+    do {
+        let _ = try db.addClerkToDB(snowflakeID: id)
+    } catch {
+        print("Unable to add client \(id) to database.")
+    }
 }
 
 bot.connect()
